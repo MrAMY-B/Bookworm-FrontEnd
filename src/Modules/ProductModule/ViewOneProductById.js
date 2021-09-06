@@ -42,7 +42,7 @@ function ViewOneProductById() {
             <h4 className=" text-success">Product Details</h4>
             <hr />
              <Row>
-                <Col className="col-md-4  col-sm-6 col-10 mb-2" >
+                <Col className="col-md-3  col-sm-6 col-10 mb-2" >
                      <Row>
                         <Col className="col-4">
                             <b>ISBN</b>

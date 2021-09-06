@@ -43,3 +43,6 @@ p{
 .sweet-gray-bg{
  background-color: #F5F5EF; 
 }
+.list-group-item{
+  background-color: none;
+}

@@ -9,6 +9,8 @@ function AdminSideNav() {
     const [openG, setOpenG] = useState(false);
     const [openP, setOpenP] = useState(false);
     const [openU, setOpenU] = useState(false);
+    const [openAU, setOpenAU] = useState(false);
+    const [openPU, setOpenPU] = useState(false);
 
 
     return (
@@ -28,7 +30,7 @@ function AdminSideNav() {
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openC}>
-                                    <ul className="list-group  list-group-flush" id="example-collapse-text">
+                                    <ul className=" list-group-flush" id="example-collapse-text">
                                         <li className="list-group-item"> 
                                             <Link to="/admin/categories">See Categories</Link> 
                                         </li>
@@ -45,7 +47,7 @@ function AdminSideNav() {
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openL}>
-                                    <ul className="list-group  list-group-flush" id="example-collapse-text">
+                                    <ul className="list-group-flush" id="example-collapse-text">
                                         <li className="list-group-item" ><Link to="/admin/languages" >See Languages</Link></li>
                                         <li className="list-group-item"><Link to="/admin/add-language">Add Language</Link></li>
                                     </ul>
@@ -60,7 +62,7 @@ function AdminSideNav() {
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openG}>
-                                    <ul className="list-group  list-group-flush" id="example-collapse-text">
+                                    <ul className="list-group-flush" id="example-collapse-text">
                                     <li className="list-group-item" ><Link to="/admin/genres" >See Genre</Link></li>
                                         <li className="list-group-item"><Link to="/admin/add-genre">Add Genre</Link></li>
                                     </ul>
@@ -75,7 +77,7 @@ function AdminSideNav() {
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openP}>
-                                    <ul className="list-group  list-group-flush" id="example-collapse-text">
+                                    <ul className="  list-group-flush" id="example-collapse-text">
                                         <li className="list-group-item"><Link to="/admin/products" >See Products</Link></li>
                                         <li className="list-group-item"><Link to="/admin/add-product" >Add Product</Link> </li>
                                     </ul>
@@ -89,16 +91,39 @@ function AdminSideNav() {
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openU}>
-                                    <ul className="list-group  list-group-flush" id="example-collapse-text">
+                                    <ul className="  list-group-flush" id="example-collapse-text">
                                         <li className="list-group-item"><Link to="/admin/users" >See Users</Link></li>
                                     </ul>
                             </Collapse>
                         </div>
-                    
 
-                    <Nav.Link>
-                        
-                    </Nav.Link>
+                        <div>
+                            <Nav.Link>
+                                <h6 onClick={() => setOpenAU(!openAU)} aria-controls="aut">
+                                    <MdArrowDropDown/> Authors
+                                </h6>
+                            </Nav.Link>
+                            <Collapse in={openAU}>
+                                    <ul className="  list-group-flush" id="aut">
+                                        <li className="list-group-item"><Link to="/admin/authors" >See Authors</Link></li>
+                                    </ul>
+                            </Collapse>
+                        </div>
+
+                        <div>
+                            <Nav.Link>
+                                <h6 onClick={() => setOpenPU(!openPU)} aria-controls="pub">
+                                    <MdArrowDropDown/> Publisher
+                                </h6>
+                            </Nav.Link>
+                            <Collapse in={openPU}>
+                                    <ul className="  list-group-flush" id="pub">
+                                        <li className="list-group-item"><Link to="/admin/pubisher" >See Publisher</Link></li>
+                                    </ul>
+                            </Collapse>
+                        </div>
+
+
                 </Nav>
           
            

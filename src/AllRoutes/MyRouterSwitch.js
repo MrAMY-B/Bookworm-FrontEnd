@@ -27,6 +27,11 @@ import AddAuthorsToProduct from '../Modules/ProductModule/AddAuthorsToProduct';
 import ViewOneProductById from '../Modules/ProductModule/ViewOneProductById';
 import UpdateProduct from '../Modules/ProductModule/UpdateProduct';
 import UpdateProductPublisher from '../Modules/ProductModule/UpdateProductPublisher';
+import ProductsByCategory from '../Modules/ProductModule/ProductsByCategory';
+import ProductByGenre from '../Modules/ProductModule/ProductByGenre';
+import UpdateProductAuthors from '../Modules/ProductModule/UpdateProductAuthors';
+import Authors from '../Modules/Authors/Authors';
+import Publishers from '../Modules/Publishers';
 function MyRouterSwitch() { 
     return (
         <>
@@ -40,6 +45,8 @@ function MyRouterSwitch() {
                 <Route  path="/User-Login" component={UserLogin} />
                 <Route  path="/Admin-Login" component={AdminLogin} />
                 <Route  path="/SignUp" component={Register} />
+                <Route exact path="/product-by-category/:cate_id" component={ProductsByCategory} />
+                <Route exact path="/product-by-genre/:cate_id" component={ProductByGenre} />
                 <Route exact path="/product-description/:prod_id" component={ ViewOneProductById } />
 
                 {/* ||||ADMIN|||| */}
@@ -70,6 +77,10 @@ function MyRouterSwitch() {
                 <Route exact path="/admin/add-product" component={AddProduct } />
                 <Route exact path="/admin/update-product/:prod_id" component={UpdateProduct} />
                 <Route exact path="/admin/update-product-publisher/:prod_id" component={UpdateProductPublisher} />
+
+                <Route exact path="/admin/update-product-authors/:prod_id" component={UpdateProductAuthors} />
+                <Route exact path="/admin/authors" component={Authors} />
+                <Route exact path="/admin/pubisher" component={Publishers} />
                 
                 {/* --------------------- */}
                 <Route exact path="/admin/add-authors-to-product/:prod_id" component={AddAuthorsToProduct} />

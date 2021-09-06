@@ -1,17 +1,19 @@
 
 import React from 'react'
 import { Card,Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 function ProductCard({product}) {
     return (
-        <>
-            <Card>
+        <   >
+            <Card className="shadow">
            
             <Card.Img variant="top" src="https://picsum.photos/200/150" />
             <Card.Body>
                <p>Product Name</p>
-                <Button variant="outline-success" size="sm">see</Button>&nbsp;&nbsp;
-                <Button variant="outline-danger" size="sm">Buy</Button>
+               
+                <Button className="btn-sm py-0"as={Link} to={"/product-description/"+product.prod_id} variant="outline-success" >see</Button>&nbsp;&nbsp;
+                <Button variant="outline-danger" className="btn-sm py-0">Buy</Button>
             </Card.Body>
             </Card>
         </>

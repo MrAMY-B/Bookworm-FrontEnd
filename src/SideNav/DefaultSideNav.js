@@ -25,7 +25,7 @@ function DefaultSideNav() {
                             </h6>
                         </Nav.Link>
                         <Collapse in={openProdCate}>
-                                <ul className="list-group  list-group-flush" id="productCategory">
+                                <ul className=" list-group-flush" id="productCategory">
                                     <li className="list-group-item"><Link to="/products-by-category/cate_id">E-Book</Link>  </li>
                                     <li className="list-group-item"><Link to="/products-by-category/cate_id">Audio Book</Link>  </li>
                                     <li className="list-group-item"><Link to="/products-by-category/cate_id"> Music </Link> </li>
@@ -41,7 +41,7 @@ function DefaultSideNav() {
                         </h6>
                     </Nav.Link>
                     <Collapse in={openProdLang}>
-                            <ul className="list-group  list-group-flush" id="productLang">
+                            <ul className=" list-group-flush" id="productLang">
                                 <li className="list-group-item"><Link to="/product-by-language/language">Hindi</Link>  </li>
                                 <li className="list-group-item"><Link to="/product-by-language/language"> English </Link> </li>
                                 <li className="list-group-item"><Link to="/product-by-language/language">Marathi</Link>  </li>
@@ -56,7 +56,7 @@ function DefaultSideNav() {
                         </h6>
                     </Nav.Link>
                     <Collapse in={openProdGen}>
-                            <ul className="list-group  list-group-flush" id="productGenre">
+                            <ul className=" list-group-flush" id="productGenre">
                                 <li className="list-group-item"><Link to="/product-by-genre/genre">Novel</Link>  </li>
                                 <li className="list-group-item"><Link to="/product-by-genre/genre"> History </Link> </li>
                                 <li className="list-group-item"><Link to="/product-by-genre/genre">Sci-Fi</Link>  </li>
