@@ -3,6 +3,7 @@ import { Alert, Button, Col, NavDropdown, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
+import { API } from '../../UtilComponents/API';
 
 function AllGenre() {
 
@@ -13,7 +14,7 @@ function AllGenre() {
     
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/genre/all')
+        fetch(API+'/genre/all')
         .then(res=> res.json() )
         .then(res => {setGenres(res); console.log('req-->')})
         .catch(err=> console.log(err))
@@ -30,7 +31,7 @@ function AllGenre() {
         }
         else if( password === 'AMOL' ){
             
-        fetch('https://amol-bookworm-api.herokuapp.com/genre/genre/'+id,{ method:"DELETE" })
+        fetch(API+'/genre/'+id,{ method:"DELETE" })
         .then(res => { 
             console.log('deletd...'+gen,res);
             setShowDangerAlert(false)
@@ -64,7 +65,9 @@ function AllGenre() {
                         <thead>
                             <tr>
                             <th>No.</th>
-                            <th>Genre Id</th>
+                            <th>Id</th>
+                            <th>Category </th>
+                            <th>Language</th>
                             <th>Genre</th>
                             <th>Update</th>
                             <th>Remove</th>
@@ -76,6 +79,8 @@ function AllGenre() {
                             <tr key={i}>
                             <td>{i+1}</td>
                             <td>{genre.gen_id}</td>
+                            <td>{genre?.language?.category?.category}</td>
+                            <td>{genre?.language?.language}</td>
                             <td>{genre.genre}</td>
                                  <td> <Link to={'/admin/update-genre/'+genre.gen_id}><Button variant="outline-secondary"> <FiEdit size={20} /> </Button></Link> </td>
                             <td> <Button variant="outline-danger" onClick={()=> deleteChategory(genre.gen_id,genre.genre)}> <MdDelete size={20} /> </Button> </td>

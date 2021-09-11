@@ -1,5 +1,5 @@
-
 import React, { useEffect, useState } from 'react'
+import { API } from '../../UtilComponents/API'
 import { Alert, Button, Col, Form, NavDropdown, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -12,7 +12,8 @@ function UpdateCategory(props) {
     let {cate_id} = useParams('cate_id');
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/category/'+cate_id)
+        // fetch('https://amol-bookworm-api.herokuapp.com/category/'+cate_id)
+        fetch(API+'/category/'+cate_id)
         .then(res => res.json())
         .then(res=> {setOldCate(res); console.log(res); console.log("request")})
         .catch( err => console.log("INVALID CATEGORY ID") )
@@ -26,7 +27,8 @@ function UpdateCategory(props) {
         console.log("SUCCESS");
         
 
-        fetch('https://amol-bookworm-api.herokuapp.com/category/',
+        // fetch('https://amol-bookworm-api.herokuapp.com/category/',
+        fetch(API+'/category/',
             {method:"PUT",headers:{'Content-Type':'application/json'},body:JSON.stringify(oldCate)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)

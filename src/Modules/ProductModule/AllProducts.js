@@ -4,6 +4,7 @@ import { FiEdit } from 'react-icons/fi';
 import { MdDelete, MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import AlertComponent from '../../UtilComponents/AlertComponent';
+import { API } from '../../UtilComponents/API';
 
 function AllProducts() {
 
@@ -13,7 +14,7 @@ function AllProducts() {
     
  
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/product/all')
+        fetch(API+'/product/all')
         .then(res=> res.json() )
         .then(res => {setProducts(res); console.log('req-->')})
         .catch(err=> console.log(err))
@@ -31,7 +32,7 @@ function AllProducts() {
         }
         else if( password === 'AMOL' ){
             
-        fetch('https://amol-bookworm-api.herokuapp.com/product/'+id,{ method:"DELETE" })
+        fetch(API+'/product/'+id,{ method:"DELETE" })
         .then(res => { 
             console.log('deletd...'+name,res);
             setResp(<AlertComponent type="success" msg={`Product ${name} is deleted...`}/>)
@@ -73,13 +74,13 @@ function AllProducts() {
                             </thead>
                             <tbody> 
 
-                                { products.length===0 ? 'Loading data...' :  products.map( (prod,i)=> 
+                                { products?.length===0 ? 'Loading data...' :  products?.map( (prod,i)=> 
                                 <tr key={i}>
                                 <td> {i+1}  </td>
                                 <td>{prod.prod_id}</td>
-                                <td>{prod.title_in_english}</td>
+                                <td>{prod.title}</td>
                                 <td>{prod.base_price}</td>
-                                <td><Link to={"/product-description/"+prod.prod_id}><Button variant="outline-success"><MdOpenInNew />  </Button> </Link></td>
+                                <td><Link to={"/products-description/"+prod.prod_id}><Button variant="outline-success"><MdOpenInNew />  </Button> </Link></td>
                                 <td> <Link to={'/admin/update-product/'+prod.prod_id}>
                                         <Button variant="outline-secondary"> 
                                             <FiEdit size={20} />

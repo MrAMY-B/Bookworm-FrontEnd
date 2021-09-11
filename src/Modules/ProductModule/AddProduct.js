@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import AlertComponent from '../../UtilComponents/AlertComponent'
+import { API } from '../../UtilComponents/API'
 
 function AddProduct() {
 
@@ -15,14 +16,29 @@ function AddProduct() {
     const [lang, setLang] = useState([])
     const [gen, setGen] = useState([])
 
-    useEffect(()=>{fetch('https://amol-bookworm-api.herokuapp.com/category/all').then(res=>res.json()).then(res=>setCate(res)); },[result]);
-    useEffect(()=>{ fetch('https://amol-bookworm-api.herokuapp.com/language/all').then(res=>res.json()).then(res=>setLang(res));},[cate]);
-    useEffect(()=>{fetch('https://amol-bookworm-api.herokuapp.com/genre/all').then(res=>res.json()).then(res=>setGen(res));},[lang]);
+    useEffect(()=>{fetch(API+'/category/all').then(res=>res.json()).then(res=>setCate(res)); },[result]);
+    let changeCate=(e)=>{ let selected=e.target.value;
+        setGen([])
+        fetch(API+'/language/by-cate-id/'+selected)
+        .then( res=> res.json() )
+        .then( res=> setLang(res))
+        .catch(err=>console.log(err))
+
+    }
+    let changeLanguage=(e)=>{ let selected=e.target.value;
+        fetch(API+'/genre/by-lang-id/'+selected)
+        .then( res=> res.json() )
+        .then( res=> setGen(res))
+        .catch(err=>console.log(err))
+
+    }
+    // useEffect(()=>{ fetch('https://amol-bookworm-api.herokuapp.com/language/all').then(res=>res.json()).then(res=>setLang(res));},[cate]);
+    // useEffect(()=>{fetch('https://amol-bookworm-api.herokuapp.com/genre/all').then(res=>res.json()).then(res=>setGen(res));},[lang]);
 
     const initialPro = {
         isbn:Number,
-        title:'Thor',
-        title_in_english:'Thor the God of Thunder',
+        title:'',
+        title_in_english:'',
         base_price:'',
         sale_price:'',
         offer_price:'',
@@ -33,8 +49,6 @@ function AddProduct() {
         is_rentable:false,
         is_library:false,
         length:Number,
-        category:{cate_id:0},
-        language:{lang_id:0},
         genre:{gen_id:0},
         publisher:{ name:'',
                     email:'',
@@ -45,7 +59,7 @@ function AddProduct() {
         }
 
     const prodValidation = Yup.object({
-        isbn:Yup.string().required('required').max(10,'Max 10').min(8,'Min 8     digit is allowed').matches(/^[1-9]+[0-9]$/,'ISBN must have numbers only'),
+        isbn:Yup.string().required('required').max(10,'Max 10').min(8,'Min 8  digit is allowed').matches(/^[1-9]+[0-9]$/,'ISBN must have numbers only'),
         title:Yup.string().required('required').min(4,'Titile should have minimum 4 characters'),
         title_in_english:Yup.string().required('required').matches(/^[a-zA-Z]/,'Please enter valid name').min(4,'Titile should have minimum 4 characters'),
         base_price:Yup.string().required('Required').matches(/^[1-9][0-9][.]{0,}[0-9]{0,}$/,'Price Should have numbers only'),
@@ -68,26 +82,26 @@ function AddProduct() {
         alert(JSON.stringify(values));
         console.log(JSON.stringify(values))
 
-        fetch('https://amol-bookworm-api.herokuapp.com/product/',
+        fetch(API+'/product/',
             {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
-        .then(res => { if(res.ok){
+        .then(res=> res.json())
+        .then(res=> {
             setResult(<AlertComponent type="success" msg={'Product Added.., Now add Authors and publisher'} />)
-            setTimeout(()=>{ history.push("/admin/products") } , 2000);
-            // setTimeout(()=>{ history.push("/admin/add-authors-to-product/1") } , 2000);
+            setTimeout(()=>{ history.push('/admin/add-authors-to-product/'+res?.prod_id) } , 2000);
             console.log("SUCCESS");
-        }
-        else{
+        })
+        .catch(err=> {
             setResult(<AlertComponent type="danger" msg={'Product Something went wron please try again'} />)
-            console.log(res); 
-        }
-    })
+            console.log(err); 
+        })
+    
 
     }
 
     let finPro = useFormik({initialValues:initialPro,onSubmit:handleSubmit,validationSchema:prodValidation})
     
-    const setCatId = (e)=>{finPro.setFieldValue(finPro.values.category.cate_id=e.target.value) }
-    const setLangId = (e)=>{finPro.setFieldValue(finPro.values.language.lang_id=e.target.value) }
+    // const setCatId = (e)=>{finPro.setFieldValue(finPro.values.category.cate_id=e.target.value) }
+    // const setLangId = (e)=>{finPro.setFieldValue(finPro.values.language.lang_id=e.target.value) }
     const setGenId = (e)=>{finPro.setFieldValue(finPro.values.genre.gen_id=e.target.value) }
 
  
@@ -137,7 +151,7 @@ function AddProduct() {
                                 <Col className="col-md-4 col-6" >
                                     <Form.Group>
                                         <Form.Label>Product Type</Form.Label>
-                                        <Form.Select name="cate_id" onChange={setCatId} >
+                                        <Form.Select name="cate_id" onChange={changeCate} >
                                             <option>Select Type</option>
                                             {cate.map( (c , i)=> <option key={i} value={c.cate_id}>{c.category}</option> )}
                                         </Form.Select>
@@ -146,7 +160,7 @@ function AddProduct() {
                                 <Col className="col-md-4 col-6" >
                                     <Form.Group>
                                         <Form.Label>Language</Form.Label>
-                                        <Form.Select name="lang_id" onChange={setLangId} >
+                                        <Form.Select name="lang_id" onChange={changeLanguage} >
                                             <option>Select Type</option>
                                             {lang.map( (l , i)=> <option key={i} value={l.lang_id}>{l.language}</option> )}
                                         </Form.Select>

@@ -1,22 +1,61 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Button, Col, Form, NavDropdown, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { API } from '../../UtilComponents/API';
 
 
 function AddGenre(){
 
+    let doNotReRendor=10;
     const [showDangerAlert, setShowDangerAlert] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const history = useHistory();
-    const [gen , setGen] = useState({category:''});
+    const [gen , setGen] = useState({genre:''});
 
 
-    let handleOnSubmit = (e)=> {
-        e.preventDefault()
+    const [category,setCategory] = useState([]);
+    const [language,setLanguage] = useState([]);
+    const [cate, setCate] = useState(99999)
+    const [lang, setLang] = useState(9999)
+    
+
+
+
+    useEffect(()=>{
+        fetch(API+'/category/all')
+            .then(res=>res.json())
+            .then(res=>setCategory(res)) 
+    },[doNotReRendor]);
+
+    
+
+    //============== ON CHANGE/SELECT CATEGORY
+    let changeCate = (e)=> { let selected=e.target.value;
+        setCate(parseInt(selected))
+        if(parseInt(selected)===99999){  setLang(9999); setLanguage([]); setGen({ genre:gen.genre}) }
+        else{
+           
+            fetch(API+'/language/by-cate-id/'+cate)
+            .then((res)=>res.json())
+            .then(res =>  setLanguage(res))
+            .catch(err=>console.log(err))
+        }
         
-        
+    }
+    let changeLang = (e)=> { let selected=e.target.value;
+        setLang(selected)
+        setGen({...gen,language:{ lang_id:selected }})
+        console.log(selected);
+    }
 
-        fetch('https://amol-bookworm-api.herokuapp.com/genre/',
+
+    let handleOnSubmit = (e)=> { e.preventDefault()
+        if(lang===9999 || lang==='9999'){
+            alert("Please Choose Language First")
+            
+        }else{
+            
+            fetch(API+'/genre/',
             {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(gen)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)
@@ -28,6 +67,8 @@ function AddGenre(){
             console.log(res); 
         }
     })
+        
+    }
 
 }
     
@@ -41,6 +82,23 @@ function AddGenre(){
             <h1 className="text-center text-success"> Add New Genre </h1>
                 <NavDropdown.Divider />
                 <Form onSubmit={handleOnSubmit}>
+
+                <Form.Group>
+                    <Form.Label>Product Type</Form.Label>
+                    <Form.Select name={cate} value={cate} onChange={changeCate}>
+                        <option value={99999}>Select Type</option>
+                        {category.map( (c , i)=> <option key={i} value={c.cate_id}>{c.category}</option> )}
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>Product Language</Form.Label>
+                    <Form.Select name={lang} value={lang} onChange={changeLang}>
+                        <option value={9999}>Select Type</option>
+                        {language?.map( (l , i)=> <option key={i} value={l.lang_id}>{l.language}</option> )}
+                    </Form.Select>
+                </Form.Group>
+
                     <Form.Group>
                         <Form.Label>Genre</Form.Label>
                         <Form.Control type="text" name="genre" value={gen.genre} onChange={(e)=> setGen({...gen,genre:e.target.value})} placeholder="Genre" />

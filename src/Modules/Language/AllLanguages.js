@@ -3,6 +3,7 @@ import { Alert, Button, Col, NavDropdown, Row, Table } from 'react-bootstrap'
 import { FiEdit } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { API } from '../../UtilComponents/API';
 
 function AllLanguages() {
 
@@ -13,7 +14,8 @@ function AllLanguages() {
     
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/language/all')
+        // fetch('https://amol-bookworm-api.herokuapp.com/language/all')
+        fetch(API+'/language/all')
         .then(res=> res.json() )
         .then(res => {setlanguages(res); console.log('req-->')})
         .catch(err=> console.log(err))
@@ -30,7 +32,7 @@ function AllLanguages() {
         }
         else if( password === 'AMOL' ){
             
-        fetch('https://amol-bookworm-api.herokuapp.com/language/'+id,{ method:"DELETE" })
+        fetch(API+'/language/'+id,{ method:"DELETE" })
         .then(res => { 
             console.log('deletd...'+lang,res);
             setShowDangerAlert(false)
@@ -64,8 +66,9 @@ function AllLanguages() {
                         <thead>
                             <tr>
                             <th>No.</th>
-                            <th>Language Id</th>
+                            <th>Id</th>
                             <th>Language</th>
+                            <th>Category</th>
                             <th>Update</th>
                             <th>Remove</th>
                             </tr> 
@@ -77,6 +80,7 @@ function AllLanguages() {
                             <td>{i+1}</td>
                             <td>{lang.lang_id}</td>
                             <td>{lang.language}</td>
+                            <td>{lang?.category?.category}</td>
                             <td> <Link to={'/admin/update-language/'+lang.lang_id}><Button variant="outline-secondary"><FiEdit size={20} /></Button></Link> </td>
                             <td> <Button variant="outline-danger" onClick={()=> deleteChategory(lang.lang_id,lang.language)}> <MdDelete size={20} /> </Button> </td>
                             </tr>

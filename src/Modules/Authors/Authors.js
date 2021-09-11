@@ -1,10 +1,9 @@
-import Button from '@restart/ui/esm/Button';
+
 import React, { useEffect, useState } from 'react'
-import { Col, NavDropdown, Row, Table } from 'react-bootstrap';
+import { Col, NavDropdown, Row, Table, Button } from 'react-bootstrap';
 import { FiEdit } from 'react-icons/fi';
 import { MdDelete, MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import ProductCard from '../../HomePage/ProductCard';
 import AlertComponent from '../../UtilComponents/AlertComponent';
 function Authors() {
     const [authors,setAuthors] = useState([]);

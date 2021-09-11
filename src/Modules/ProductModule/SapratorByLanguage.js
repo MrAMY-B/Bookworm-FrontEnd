@@ -1,25 +1,25 @@
 import React from 'react'
 import { Col, NavDropdown, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ProductCard from '../../HomePage/ProductCard';
 
-import ProductCard from './ProductCard';
 
-function AllProductByAllCategory(props) {
+function SapratorByLanguage(props) {
 
-    const {category,prodlist} = props;
+    const {oneLanguage,prodlist} = props;
 
     
 
     return (
         <>
-            <h3 className="text-dark py-2">{category}</h3>
+            <h3 className="text-dark py-2">{oneLanguage.language}</h3>
             <Row className="mx-0 mb-4">
                 
                 { prodlist.slice(0,6).map( (product,i) =>  <Col key={i} className="col-lg-2 col-md-3 col-sm-4 col-6 pt-2">
                                                                 <ProductCard product={product} />
                                                             </Col> ) }
                 
-                <Link to="/product-by-category/2">  See all {category} here... </Link>
+                <Link to={'/products-by-language/'+oneLanguage.lang_id}>  See all {oneLanguage.language} here... </Link>
                 <NavDropdown.Divider />
             </Row>
             
@@ -27,4 +27,5 @@ function AllProductByAllCategory(props) {
     )
 }
 
-export default AllProductByAllCategory
+
+export default SapratorByLanguage

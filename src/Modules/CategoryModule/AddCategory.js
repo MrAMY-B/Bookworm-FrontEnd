@@ -1,22 +1,25 @@
 import React, { useState } from 'react'
+import { API } from '../../UtilComponents/API'
 import { Alert, Button, Col, Form, NavDropdown, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 
 function AddCategory() {
 
+    
     const [showDangerAlert, setShowDangerAlert] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const history = useHistory();
     const [cate , setCate] = useState({category:''});
 
+  
 
     let handleOnSubmit = (e)=> {
         e.preventDefault()
         console.log("SUCCESS");
         
 
-        fetch('https://amol-bookworm-api.herokuapp.com/category/',
-            {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(cate)})
+        // fetch('https://amol-bookworm-api.herokuapp.com/category/',
+        fetch(API+'/category/', {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(cate)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)
             setTimeout(()=>{ history.push("/admin/categories") } , 2000)

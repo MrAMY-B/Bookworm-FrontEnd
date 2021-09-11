@@ -12,7 +12,7 @@ function ProductCard({product}) {
             <Card.Body>
                <p>Product Name</p>
                
-                <Button className="btn-sm py-0"as={Link} to={"/product-description/"+product.prod_id} variant="outline-success" >see</Button>&nbsp;&nbsp;
+                <Button className="btn-sm py-0"as={Link} to={"/products-description/"+product.prod_id} variant="outline-success" >see</Button>&nbsp;&nbsp;
                 <Button variant="outline-danger" className="btn-sm py-0">Buy</Button>
             </Card.Body>
             </Card>

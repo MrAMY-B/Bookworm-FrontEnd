@@ -155,7 +155,7 @@ const UpdateProduct = () =>{
              <hr/>
             <Row className="justify-content-between"> 
                 <Col className="col-4"><h5>Publication </h5> </Col> 
-                <Col className=" col-sm-2 col-4"><Button as={Link} to={"/admin/add-authors-to-product/"+prod_id} size="sm">Edit Publisher </Button></Col> 
+                <Col className=" col-sm-2 col-4"><Button as={Link} to={"/admin/update-product-publisher/"+prod_id} size="sm">Edit Publisher </Button></Col> 
             </Row>
             <Row >
                 <Col className="col-sm-4">

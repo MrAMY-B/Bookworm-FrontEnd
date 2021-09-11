@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Col, Form, NavDropdown, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
+import { API } from '../../UtilComponents/API';
 
 function UpdateLanguage(props) {
 
@@ -11,7 +12,7 @@ function UpdateLanguage(props) {
     let {lang_id} = useParams('lang_id');
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/language/'+lang_id)
+        fetch(API+'/language/'+lang_id)
         .then(res => res.json())
         .then(res=> {setOldLang(res); console.log(res); console.log("request")})
         .catch( err => console.log("INVALID LANGUAGE ID") )
@@ -25,7 +26,7 @@ function UpdateLanguage(props) {
         console.log("SUCCESS");
         
 
-        fetch('https://amol-bookworm-api.herokuapp.com/language/',
+        fetch(API+'/language/',
             {method:"PUT",headers:{'Content-Type':'application/json'},body:JSON.stringify(oldLang)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)
@@ -47,7 +48,7 @@ function UpdateLanguage(props) {
                 <h1 className="text-center text-success"> Update Language </h1>
                     <NavDropdown.Divider />
                     <Form onSubmit={handleOnSubmit}>
-                        <h3>Language Id : { lang_id }</h3>
+                        <h3>ID : { lang_id } | CATE : {oldLang?.category?.category}</h3>
                         <Form.Group>
                             <Form.Label>Language</Form.Label>
                             <Form.Control type="text" name="language" value={oldLang.language} onChange={(e)=> setOldLang({...oldLang,language:e.target.value})} placeholder="Category" />

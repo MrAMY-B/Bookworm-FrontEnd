@@ -77,12 +77,12 @@ function ViewOneProductById() {
                      <Row> 
                         <Col className="pt-md-2">
                             <p><small>Product Type</small></p>
-                            <p><b>{product.category?.category}</b></p>
+                            <p><b>{product?.genre?.language?.category?.category}</b></p>
 
                         </Col>
                         <Col className="pt-md-2">
                             <p><small>Language</small></p>
-                            <p><b>{product.language?.language}</b></p>
+                            <p><b>{product?.genre?.language?.language}</b></p>
 
                         </Col>
                         <Col className="pt-md-2">

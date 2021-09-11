@@ -4,24 +4,25 @@ import { useParams } from 'react-router';
 import ProductCard from '../../HomePage/ProductCard';
 import { LOCAL_API } from '../../UtilComponents/API';
 
-function ProductByGenre() {
+function AllProductsByLaguage() {
 
-    let {gen_id} = useParams('gen_id');
+    let {lang_id} = useParams('lang_id');
+    let {LANG} = useParams("CATE")
 
     const [products, setProducts] = useState([])
 
 
     useEffect(()=>{
-        fetch(LOCAL_API+'/product/by-gen-id/'+gen_id)
+        fetch(LOCAL_API+'/product/by-lang-id/'+lang_id)
         .then( res=> res.json())
         .then( res=> setProducts(res) )
         .catch( err=> console.log(err) )
-    },[gen_id])
+    },[lang_id])
 
     return (
         <>
             <Container >
-            <h1 className="text-center text-success">Genre Name </h1>
+            <h1 className="text-center text-success"> {'All '+LANG} </h1>
             <Row className="mx-0 my-4">
                 
                 { products.map( (product,i) =>  <Col key={i} className="col-lg-2 col-md-3 col-sm-4 col-6 pt-2">
@@ -37,4 +38,4 @@ function ProductByGenre() {
     )
 }
 
-export default ProductByGenre
+export default AllProductsByLaguage

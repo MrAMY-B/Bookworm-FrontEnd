@@ -31,23 +31,32 @@ import ProductsByCategory from '../Modules/ProductModule/ProductsByCategory';
 import ProductByGenre from '../Modules/ProductModule/ProductByGenre';
 import UpdateProductAuthors from '../Modules/ProductModule/UpdateProductAuthors';
 import Authors from '../Modules/Authors/Authors';
-import Publishers from '../Modules/Publishers';
+import Publishers from '../Modules/Publishers/Publishers';
+import ProductsByLanguage from '../Modules/ProductModule/ProductsByLanguage';
+import AllProductsByCategory from '../Modules/ProductModule/AllProductsByCategory';
+import AllProductsByLaguage from '../Modules/ProductModule/AllProductsByLaguage';
+import AllProductsByGenre from '../Modules/ProductModule/AllProductsByGenre.js';
 function MyRouterSwitch() { 
     return (
         <>
             <Switch>
             <Route exact path="/"  component={Home}/>
                 <Route exact path="/Home" component={Home}/>
-                <Route  path="/About-us"  component={About} />
-                <Route  path="/Contact" component={Contact} />
-                <Route  path="/Feedback" component={Feedback} />
+                <Route exact path="/About-us"  component={About} />
+                <Route exact path="/Contact" component={Contact} />
+                <Route exact path="/Feedback" component={Feedback} />
                 
-                <Route  path="/User-Login" component={UserLogin} />
-                <Route  path="/Admin-Login" component={AdminLogin} />
-                <Route  path="/SignUp" component={Register} />
-                <Route exact path="/product-by-category/:cate_id" component={ProductsByCategory} />
-                <Route exact path="/product-by-genre/:cate_id" component={ProductByGenre} />
-                <Route exact path="/product-description/:prod_id" component={ ViewOneProductById } />
+                <Route exact  path="/User-Login" component={UserLogin} />
+                <Route exact  path="/Admin-Login" component={AdminLogin} />
+                <Route exact path="/SignUp" component={Register} />
+                <Route exact path="/products-by-category/:cate_id" component={ProductsByCategory} />
+                <Route exact path="/products-by-language/:lang_id" component={ProductsByLanguage} />
+                <Route exact path="/products-by-genre/:gen_id" component={ProductByGenre} />
+                <Route exact path="/products-description/:prod_id" component={ ViewOneProductById } />
+
+                <Route exact path="/all-products-by-category/:CATE/:cate_id" component={AllProductsByCategory} />
+                <Route exact path="/all-products-by-language/:LANG/:lang_id" component={AllProductsByLaguage} />
+                <Route exact path="/all-products-by-genre/:GEN/:gen_id" component={AllProductsByGenre} />
 
                 {/* ||||ADMIN|||| */}
 

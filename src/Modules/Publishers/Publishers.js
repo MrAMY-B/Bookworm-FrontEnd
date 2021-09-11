@@ -1,11 +1,10 @@
 
-import Button from '@restart/ui/esm/Button';
 import React, { useEffect, useState } from 'react'
-import { Col, NavDropdown, Row, Table } from 'react-bootstrap';
+import { Col, NavDropdown, Row, Table, Button } from 'react-bootstrap';
 import { FiEdit } from 'react-icons/fi';
 import { MdDelete, MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import AlertComponent from '../UtilComponents/AlertComponent';
+import AlertComponent from '../../UtilComponents/AlertComponent';
 
 function Publishers() {
     const [publisher,setPublisher] = useState([]);
@@ -14,6 +13,9 @@ function Publishers() {
     
  
     useEffect(()=>{
+
+        
+
         fetch('https://amol-bookworm-api.herokuapp.com/publisher/all')
         .then(res=> res.json() )
         .then(res => {setPublisher(res); console.log('req-->')})
@@ -67,7 +69,7 @@ function Publishers() {
                                 <th>Product Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Visit</th>
+                                <th>See</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                                 </tr> 

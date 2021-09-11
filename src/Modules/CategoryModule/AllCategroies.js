@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { API } from '../../UtilComponents/API'
 import { Alert, Button, Col, NavDropdown, Row, Table } from 'react-bootstrap'
 import { FiEdit } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 function AllCategroies() {
+
+    
 
     const [categories,setCategories] = useState([]);
     const [showDangerAlert, setShowDangerAlert] = useState(false);
@@ -13,7 +16,8 @@ function AllCategroies() {
     
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/category/all')
+        // fetch('https://amol-bookworm-api.herokuapp.com/category/all')
+        fetch(API+'/category/all')
         .then(res=> res.json() )
         .then(res => {setCategories(res); console.log('req-->')})
         .catch(err=> console.log(err))
@@ -30,7 +34,8 @@ function AllCategroies() {
         }
         else if( password === 'AMOL' ){
             
-        fetch('https://amol-bookworm-api.herokuapp.com/category/'+id,{ method:"DELETE" })
+        // fetch('https://amol-bookworm-api.herokuapp.com/category/'+id,{ method:"DELETE" })
+        fetch(API+'/category/'+id,{ method:"DELETE" })
         .then(res => { 
             console.log('deletd...'+cate,res);
             setShowDangerAlert(false)

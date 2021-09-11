@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Col, Form, NavDropdown, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
+import { API } from '../../UtilComponents/API';
 
 function UpdateGenre(props) {
 
@@ -12,7 +13,7 @@ function UpdateGenre(props) {
     let {gen_id} = useParams('gen_id');
 
     useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/genre/'+gen_id)
+        fetch(API+'/genre/'+gen_id)
         .then(res => res.json())
         .then(res=> {setOldGen(res); console.log(res); console.log("request")})
         .catch( err => console.log("INVALID Gnere ID") )
@@ -26,7 +27,7 @@ function UpdateGenre(props) {
         
         
 
-        fetch('https://amol-bookworm-api.herokuapp.com/genre/',
+        fetch(API+'/genre/',
             {method:"PUT",headers:{'Content-Type':'application/json'},body:JSON.stringify(oldGen)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)
@@ -48,7 +49,8 @@ function UpdateGenre(props) {
                 <h1 className="text-center text-success"> Update Language </h1>
                     <NavDropdown.Divider />
                     <Form onSubmit={handleOnSubmit}>
-                        <h3>Genre Id : { gen_id }</h3>
+                        <h3>Id:{gen_id }</h3>
+                        <p>Category : { oldGen?.language?.category?.category } <b>|</b> Language : { oldGen?.language?.language }</p >
                         <Form.Group>
                             <Form.Label>Genre</Form.Label>
                             <Form.Control type="text" name="genre" value={oldGen.genre} onChange={(e)=> setOldGen({...oldGen,genre:e.target.value})} placeholder="Category" />

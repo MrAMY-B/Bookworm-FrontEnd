@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Col, Row,Button, Container } from 'react-bootstrap';
 import AlertComponent from '../../UtilComponents/AlertComponent';
+import { API } from '../../UtilComponents/API';
 
 const UpdateProductPublisher = () => {
 
@@ -17,15 +18,23 @@ const UpdateProductPublisher = () => {
                                     address:{ address:'',city:'',pin_code:''},
                                     account:{ acc_number:'', bank_name:'',branch:'',acc_type:'',pan_no:'',ifsc:'' } })
 
-  
-    useEffect(()=>{
-        fetch('https://amol-bookworm-api.herokuapp.com/product/'+prod_id)
+    const fetchAccount = ()=>{
+        fetch(API+'/account/'+pub?.account?.acc_id)
         .then(res => res.json())
-        .then(res=> {setProduct(res); setPub(res.publisher); console.log(res); console.log("request")})
-        .catch( err => console.log("INVALID PRODUCT ID") )
+        .then(res=> {pub.account=res; console.log(res); console.log("request")})
+        .catch( err => console.log(err) )
+    }
+    useEffect(()=>{
+        fetch(API+'/product/'+prod_id)
+        .then(res => res.json())
+        .then(res=> {setProduct(res); setPub(res.publisher); fetchAccount(); console.log(res); console.log("request")})
+        .catch( err => console.log(err) )
+
+        
         
     },[prod_id])
 
+    
         let publisherValidator = Yup.object({
             name:Yup.string().required('Required'),
             email:Yup.string().required('Required'),
@@ -36,11 +45,11 @@ const UpdateProductPublisher = () => {
 
         let submitHandle = (values) => {
             let x = JSON.stringify({...product,publisher:values})
-            fetch('https://amol-bookworm-api.herokuapp.com/product/',
+            fetch(API+'/product/',
             {method:"PUT",headers:{'Content-Type':'application/json'},body:x})
         .then(res => { if(res.ok){
             setResult(<AlertComponent type="success" msg={'Publisher updated Successfully..'} />)
-            setTimeout(()=>{ history.push("/product-description/"+product.prod_id) } , 2000);
+            setTimeout(()=>{ history.push("/update-product/"+product.prod_id) } , 2000);
             console.log("SUCCESS");
         }
         else{
