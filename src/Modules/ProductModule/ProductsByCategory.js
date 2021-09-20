@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import {  NavDropdown, Row } from 'react-bootstrap';
-import { Link } from 'react-bootstrap-icons';
+import {   Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import { LOCAL_API } from '../../UtilComponents/API';
+import { API } from '../../UtilComponents/API';
 import SapratorByLanguage from './SapratorByLanguage';
 
 function ProductsByLanguage() {
@@ -14,7 +13,7 @@ function ProductsByLanguage() {
     const [languageList,setLanguageList] = useState([]);
 
     useEffect(() => {
-        fetch(LOCAL_API+'/language/by-cate-id/'+cate_id)
+        fetch(API+'/language/by-cate-id/'+cate_id)
         .then( (res)=> res.json()  )
         .then((res)=> setLanguageList(res) )
         .catch( err=> console.log(err) )
@@ -41,8 +40,6 @@ function ProductsByLanguage() {
         
                 
             </Row>
-            <Link to="/products-by-language/2">  See by Likk Language all here... </Link>
-                <NavDropdown.Divider />
         </>
     )
 }

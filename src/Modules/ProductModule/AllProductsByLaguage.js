@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, NavDropdown, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import ProductCard from '../../HomePage/ProductCard';
-import { LOCAL_API } from '../../UtilComponents/API';
+import { API } from '../../UtilComponents/API';
 
 function AllProductsByLaguage() {
 
@@ -13,7 +13,7 @@ function AllProductsByLaguage() {
 
 
     useEffect(()=>{
-        fetch(LOCAL_API+'/product/by-lang-id/'+lang_id)
+        fetch(API+'/product/by-lang-id/'+lang_id)
         .then( res=> res.json())
         .then( res=> setProducts(res) )
         .catch( err=> console.log(err) )

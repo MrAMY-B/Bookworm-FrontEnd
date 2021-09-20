@@ -31,11 +31,13 @@ function SearchProduct(props) {
     //============== ON CHANGE/SELECT CATEGORY
     let changeCate = (e)=> { let selected=e.target.value;
         setCate(parseInt(selected))
-        setGenre([])
-        if(parseInt(selected)===99999){  setLang(9999); setLanguage([]); }
+        setLang(9999);
+        setGen(999);
+        
+        if(parseInt(selected)===99999){ setLanguage([]); setGenre([])  }
         else{
             
-            fetch(API+'/language/by-cate-id/'+cate)
+            fetch(API+'/language/by-cate-id/'+selected)
             .then((res)=>res.json())
             .then(res =>  setLanguage(res))
             .catch(err=>console.log(err))
@@ -45,12 +47,12 @@ function SearchProduct(props) {
     //============== ON CHANGE/SELECT LANGUAGE
     let changeLang = (e)=> { let selected=e.target.value;
         setLang(parseInt(selected));
+        setGen(999); 
         if(parseInt(selected)===9999){ 
-            setGen(999); 
             setGenre([]); 
         }
         else{ 
-            fetch(API+'/genre/by-lang-id/'+lang)
+            fetch(API+'/genre/by-lang-id/'+selected)
             .then((res)=>res.json())
             .then(res => setGenre(res))
             .catch(err=>console.log(err))
@@ -61,20 +63,21 @@ function SearchProduct(props) {
 
     let handleSerchProduct=()=>{
         
+        if(cate!==99999 ) console.log("cateID:"+cate+ ", | ") ;
+        if(lang!==9999) console.log("langID:"+lang+" | ");
+        if(gen!==999)console.log("genID:"+gen) ;
         
         if(cate!==99999){
             if(lang!==9999){
-                if(gen!==999)  history.push("/all-products-by-category/CATE/"+gen)
-                else  history.push("/all-products-by-language/LANG/"+cate)
+                if(gen!==999) history.push("/all-products-by-genre/GEN/"+gen);  
+                else  history.push("/all-products-by-language/LANG/"+lang)
            }
-           else  history.push("/all-products-by-genre/GEN/"+lang);
+           else  history.push("/all-products-by-category/CATE/"+cate);
         }
         else console.log("NOTHING IS SELECTED");
         
 
-        if(cate!==99999 ) console.log("cateID:"+cate+ ", | ") ;
-        if(lang!==9999) console.log("langID:"+lang+" | ");
-        if(gen!==999)console.log("genID:"+gen) ;
+       
     }
 
     return (

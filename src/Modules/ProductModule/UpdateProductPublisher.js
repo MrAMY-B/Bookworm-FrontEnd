@@ -18,7 +18,7 @@ const UpdateProductPublisher = () => {
                                     address:{ address:'',city:'',pin_code:''},
                                     account:{ acc_number:'', bank_name:'',branch:'',acc_type:'',pan_no:'',ifsc:'' } })
 
-    const fetchAccount = ()=>{
+    let fetchAccount = ()=>{
         fetch(API+'/account/'+pub?.account?.acc_id)
         .then(res => res.json())
         .then(res=> {pub.account=res; console.log(res); console.log("request")})

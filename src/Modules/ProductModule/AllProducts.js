@@ -74,7 +74,7 @@ function AllProducts() {
                             </thead>
                             <tbody> 
 
-                                { products?.length===0 ? 'Loading data...' :  products?.map( (prod,i)=> 
+                                { products?.length===0 ? null :  products?.map( (prod,i)=> 
                                 <tr key={i}>
                                 <td> {i+1}  </td>
                                 <td>{prod.prod_id}</td>

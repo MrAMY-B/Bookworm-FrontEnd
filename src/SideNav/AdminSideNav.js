@@ -22,7 +22,7 @@ function AdminSideNav() {
                 </h4>
                 <hr />
 
-                <Nav>
+                <Nav style={{display:'block'}}>
                         <div className="d-block">
                             <Nav.Link>
                                 <h6 onClick={() => setOpenC(!openC)} aria-controls="example-collapse-text">

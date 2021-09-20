@@ -42,7 +42,7 @@ function DefaultSideNav() {
                 </h4>
                 <hr />
           
-            <Nav>
+            <Nav style={{display:'block'}}>
                     <div>
                         <Nav.Link>
                             <h6 onClick={() => setOpenProdCate(!openProdCate)} aria-controls="productCategory">

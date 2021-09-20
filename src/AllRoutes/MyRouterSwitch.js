@@ -36,6 +36,8 @@ import ProductsByLanguage from '../Modules/ProductModule/ProductsByLanguage';
 import AllProductsByCategory from '../Modules/ProductModule/AllProductsByCategory';
 import AllProductsByLaguage from '../Modules/ProductModule/AllProductsByLaguage';
 import AllProductsByGenre from '../Modules/ProductModule/AllProductsByGenre.js';
+import ViewOneUser from '../Modules/UserModule/ViewOneUser';
+import UpdateProfile from '../Modules/UserModule/UpdateProfile';
 function MyRouterSwitch() { 
     return (
         <>
@@ -57,6 +59,7 @@ function MyRouterSwitch() {
                 <Route exact path="/all-products-by-category/:CATE/:cate_id" component={AllProductsByCategory} />
                 <Route exact path="/all-products-by-language/:LANG/:lang_id" component={AllProductsByLaguage} />
                 <Route exact path="/all-products-by-genre/:GEN/:gen_id" component={AllProductsByGenre} />
+                <Route exact path="/user-details/:u_id" component={ViewOneUser} />
 
                 {/* ||||ADMIN|||| */}
 
@@ -95,7 +98,8 @@ function MyRouterSwitch() {
                 <Route exact path="/admin/add-authors-to-product/:prod_id" component={AddAuthorsToProduct} />
                 {/* ==================USER=================== */}
                 <Route exact path="/admin/users" component={AllUsers} />
-                <Route exact path="/usere/my-profile" component={MyProfile} />
+                <Route exact path="/user/my-profile" component={MyProfile} />
+                <Route exact path="/user/update-my-profile" component={UpdateProfile} />
 
 
 

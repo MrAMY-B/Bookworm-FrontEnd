@@ -63,6 +63,7 @@ function MyNavbar({changeUser}) {
                 </Nav>
             </Navbar.Collapse>
             </Container>
+            
             </Navbar>
             <SearchProduct display={showProductSearch} closeSearchProduct={handleProductSearch} />
 

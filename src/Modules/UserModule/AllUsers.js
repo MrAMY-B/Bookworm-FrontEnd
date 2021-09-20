@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, NavDropdown, Row, Table } from 'react-bootstrap';
-import { FiEdit } from 'react-icons/fi';
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import AlertComponent from '../../UtilComponents/AlertComponent';
 
@@ -64,7 +63,7 @@ function AllUsers() {
                             <th>User Id</th>
                             <th>User Name</th>
                             <th>Email</th>
-                            <th>Update</th>
+                            <th>See</th>
                             <th>Delete</th>
                             </tr> 
                         </thead>
@@ -74,9 +73,9 @@ function AllUsers() {
                             <tr key={i}>
                             <td>{i+1}</td>
                             <td>{user.u_id}</td>
-                            <td>{user.name}</td>
+                            <td>{user.uname}</td>
                             <td>{user.email}</td>
-                                 <td> <Link to={'/'+user.gen_id}><Button variant="outline-secondary"> <FiEdit size={20} /> </Button></Link> </td>
+                                 <td> <Link to={'/user-details/'+user.u_id}><Button variant="outline-success"><MdOpenInNew />  </Button> </Link> </td>
                             <td> <Button variant="outline-danger" onClick={()=> deleteUser(user.u_id,user.name)}> <MdDelete size={20} /> </Button> </td>
                             </tr>
                             ) }

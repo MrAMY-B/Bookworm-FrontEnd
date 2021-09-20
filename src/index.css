@@ -43,6 +43,13 @@ p{
 .sweet-gray-bg{
  background-color: #F5F5EF; 
 }
+
+
 .list-group-item{
   background-color: none;
 }
+
+.list-group-flush ol, ul {
+  padding-left: 1.5rem;
+}
+

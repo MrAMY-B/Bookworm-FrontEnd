@@ -35,15 +35,19 @@ class App extends Component{
   return (
       <div className="App">
         <Router>
-
+           {/*======== NAVBAR ======== */}
            <MyNavbar changeUser={this.changeUser}/>
+           {/* <UserIconPanel /> */}
 
+            {/*======== PAGE ======== */}
             <Container fluid>
 
               <Row>
+                {/*======== SIDE NAV ======== */}
                   <Col className="col-lg-2 py-3 col-md-3 d-md-block d-none bg-light border-end min-vh-100">
                         {this.state.user_type === 'ADMIN' ?  <AdminSideNav /> : this.state.user_type ==='USER' ? <UserSideNav/> : <DefaultSideNav />}
                   </Col>
+                {/*======== CONTENT ======== */}
                   <Col className="col-lg-10 col-md-9 py-3">
                     <MyRouterSwitch/>
                   </Col>
@@ -51,7 +55,7 @@ class App extends Component{
 
              
             </Container>
-
+            {/*======== FOOTER ======== */}
           <MyFooter />
           
         </Router>

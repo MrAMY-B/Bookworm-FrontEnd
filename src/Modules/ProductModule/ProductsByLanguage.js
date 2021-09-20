@@ -6,10 +6,9 @@
 
 
 import React, { useEffect, useState } from 'react'
-import {  NavDropdown, Row } from 'react-bootstrap';
-import { Link } from 'react-bootstrap-icons';
+import { Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import { LOCAL_API } from '../../UtilComponents/API';
+import { API } from '../../UtilComponents/API';
 import SaperatorByGenre from './SaperatorByGenre';
 
 function ProductsByCategory() {
@@ -21,7 +20,7 @@ function ProductsByCategory() {
     let [genreList,setGenreList] = useState([]);
 
     useEffect(() => {
-        fetch(LOCAL_API+'/genre/by-lang-id/'+lang_id)
+        fetch(API+'/genre/by-lang-id/'+lang_id)
         .then( (res)=> res.json()  )
         .then((res)=> setGenreList(res) )
         .catch( err=> console.log(err) )
@@ -47,8 +46,7 @@ function ProductsByCategory() {
         
                 
             </Row>
-            <Link to="/products-by-category/2">  See all here... </Link>
-                <NavDropdown.Divider />
+           
         </>
     )
 }

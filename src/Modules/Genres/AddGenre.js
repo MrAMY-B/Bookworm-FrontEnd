@@ -35,7 +35,7 @@ function AddGenre(){
         if(parseInt(selected)===99999){  setLang(9999); setLanguage([]); setGen({ genre:gen.genre}) }
         else{
            
-            fetch(API+'/language/by-cate-id/'+cate)
+            fetch(API+'/language/by-cate-id/'+selected)
             .then((res)=>res.json())
             .then(res =>  setLanguage(res))
             .catch(err=>console.log(err))
