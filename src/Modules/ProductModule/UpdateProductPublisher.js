@@ -18,16 +18,21 @@ const UpdateProductPublisher = () => {
                                     address:{ address:'',city:'',pin_code:''},
                                     account:{ acc_number:'', bank_name:'',branch:'',acc_type:'',pan_no:'',ifsc:'' } })
 
-    let fetchAccount = ()=>{
-        fetch(API+'/account/'+pub?.account?.acc_id)
-        .then(res => res.json())
-        .then(res=> {pub.account=res; console.log(res); console.log("request")})
-        .catch( err => console.log(err) )
-    }
+    
     useEffect(()=>{
         fetch(API+'/product/'+prod_id)
         .then(res => res.json())
-        .then(res=> {setProduct(res); setPub(res.publisher); fetchAccount(); console.log(res); console.log("request")})
+        .then(res=> {
+            setProduct(res); 
+            setPub(res.publisher); 
+
+            fetch(API+'/account/'+res.publisher?.account?.acc_id)
+                .then(res2 => res2.json())
+                .then(res2=> {pub.account=res2; console.log(res2); console.log("request")})
+                .catch( err => console.log(err) ) 
+
+            console.log(res); 
+            console.log("request")})
         .catch( err => console.log(err) )
 
         
@@ -49,7 +54,7 @@ const UpdateProductPublisher = () => {
             {method:"PUT",headers:{'Content-Type':'application/json'},body:x})
         .then(res => { if(res.ok){
             setResult(<AlertComponent type="success" msg={'Publisher updated Successfully..'} />)
-            setTimeout(()=>{ history.push("/update-product/"+product.prod_id) } , 2000);
+            setTimeout(()=>{ history.push("/admin/update-product/"+product.prod_id) } , 2000);
             console.log("SUCCESS");
         }
         else{

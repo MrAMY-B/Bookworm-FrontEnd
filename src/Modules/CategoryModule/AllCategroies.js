@@ -59,7 +59,7 @@ function AllCategroies() {
         <>
            <Row className="justify-content-center  p-sm-4">
 
-                <Col md={10}  className=" justify-content-center rounded  bg-light pt-4 pb-5 border rounded   shadow-lg">
+                <Col md={10}  className="justify-content-center rounded  bg-light pt-4 pb-5 border shadow-lg">
                     <Alert variant={'danger'} show={showDangerAlert} onClose={() => setShowDangerAlert(false)} dismissible> Failed to Add </Alert>
                     <Alert variant={'success'} show={showSuccessAlert} onClose={() => setShowSuccessAlert(false)} dismissible> Successfully Added </Alert>
                 

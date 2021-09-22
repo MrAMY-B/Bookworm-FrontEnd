@@ -43,7 +43,7 @@ const UpdateProduct = () =>{
             
            <Row className="justify-content-between"> 
                 <Col className="col-4"><h4>Product Details</h4> </Col> 
-                <Col className=" col-sm-2 col-5"><Button > Edit Product</Button></Col> 
+                <Col className=" col-sm-2 col-5"><Button as={Link} to={"/admin/update-product-details/"+product?.prod_id}> Edit Product</Button></Col> 
             </Row>
             <hr />
              <Row>
@@ -82,12 +82,12 @@ const UpdateProduct = () =>{
                      <Row> 
                         <Col className="pt-md-2">
                             <p><small>Product Type</small></p>
-                            <p><b>{product.category?.category}</b></p>
+                            <p><b>{product.genre?.language?.category?.category}</b></p>
 
                         </Col>
                         <Col className="pt-md-2">
                             <p><small>Language</small></p>
-                            <p><b>{product.language?.language}</b></p>
+                            <p><b>{product.genre?.language?.language}</b></p>
 
                         </Col>
                         <Col className="pt-md-2">

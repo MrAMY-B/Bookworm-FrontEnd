@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Button, Col, Row } from 'react-bootstrap'
-import { FiUser, FiUserX } from 'react-icons/fi'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { FiUser } from 'react-icons/fi'
 
 function MyProfile() {
 
@@ -20,13 +20,14 @@ function MyProfile() {
     },[uid])
 
     return (
-        <>   <h2 className="text-center text-success">My Profile</h2>
+        <>   
             
-           <Row className="p-4">
-
-           
-          
-                <Col xs="2" className="text-center">
+           <Container className="p-sm-5">
+         
+           <Row className="py-sm-3  rounded  bg-light  border shadow-lg">
+           <h1 className="text-center text-success">My Profile</h1>
+           <hr />
+                <Col className="col-md-2 col-sm-4 text-center">
                     <FiUser size="80%"/>
                     <Button as={Link} to="/user/update-my-profile" size="sm">Edit Profile</Button>
                 </Col>
@@ -44,9 +45,10 @@ function MyProfile() {
                     <h6>City : {user?.address?.city}</h6>
                     <h6>Pin Code : {user?.address?.pin_code}</h6>
                </Col>
-               <hr />
+               
            </Row>
-           
+          
+           </Container>
          
             
         </>

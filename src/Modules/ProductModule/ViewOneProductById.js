@@ -4,7 +4,7 @@ import { Col, Container,Button, Image, Row } from 'react-bootstrap';
 import { Telephone } from 'react-bootstrap-icons';
 import { FiUser } from 'react-icons/fi';
 import { MdEmail } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function ViewOneProductById() {
     
@@ -17,7 +17,7 @@ function ViewOneProductById() {
     useEffect(()=>{
         fetch('https://amol-bookworm-api.herokuapp.com/product/'+prod_id)
         .then(res => res.json())
-        .then(res=> {setProduct(res); console.log(res); console.log("request")})
+        .then(res=> {setProduct(res); console.log("request")})
         .catch( err => console.log("INVALID PRODUCT ID") )
         
     },[prod_id])
@@ -131,17 +131,17 @@ function ViewOneProductById() {
             <Row className="pt-md-2"> 
                 <Col >
                     <p><small>Offer Price</small></p>
-                    <p><b>{product.offer_price}</b></p>
+                    <p><b>Rs.{product.offer_price}/-</b></p>
 
                 </Col>
                 <Col >
                     <p><small>Base Price</small></p>
-                    <p><b>{product.base_price}</b></p>
+                    <p><b>Rs.{product.base_price}/-</b></p>
 
                 </Col>
                 <Col >
                     <p><small>Selling price</small></p>
-                    <p><b>{product.sale_price}</b></p>
+                    <p><b>Rs.{product.sale_price}/-</b></p>
 
                 </Col>
                 
@@ -151,16 +151,16 @@ function ViewOneProductById() {
                 <Col >
             
                     {product.is_rentable ?
-                        <Button variant="warning" > Rent </Button>
+                        <Button variant="warning" as={Link} to={"/rent-product/"+product.prod_id} > Rent </Button>
                         : null
                     }
                     &nbsp;&nbsp;
                     {product.is_library ?
-                    <Button variant="danger"  > Lent </Button>
+                    <Button variant="danger" as={Link} to={"/lent-product/"+product.prod_id} > Lent </Button>
                     : null
                     } 
                     &nbsp;&nbsp;
-                <Button variant="success"  > Buy </Button>       
+                <Button variant="success" as={Link} to={"/buy-product/"+product.prod_id} > Buy </Button> 
                     
                 </Col>
 

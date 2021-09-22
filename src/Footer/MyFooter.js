@@ -9,14 +9,14 @@ function MyFooter() {
     return (
         <>
         <Container fluid="true" className="mt-5">
-          <Row className="p-4 bg-dark text-center text-light mx-0 pb-sm-0 mb-sm-0">
-            <Col md={4}  className={['rounded','m-1','mb-sm-4']}>
+          <Row className="pt-4 bg-dark text-center text-light mx-0 pb-sm-0 mb-sm-0">
+            <Col md={4}  className='rounded my-1 mb-sm-4 col-6'>
                 <GroupMembers/>
             </Col>
-            <Col md={{order:'last'}}   className={['rounded','m-1','mb-sm-4']}>
+            <Col md={{order:'last'}}   className='rounded my-1 mb-sm-4 col-6'>
                 <Technologies />
             </Col>
-            <Col md={4}  className={['rounded','m-1','mb-sm-0']}>
+            <Col md={4}  className='rounded m-md-1 mb-0 mb-sm-0' >
                 <SiteFooterLogo />
             </Col>
           </Row>

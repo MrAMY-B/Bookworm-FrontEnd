@@ -11,11 +11,21 @@ function UserSideNav() {
     const [openShelf, setOpenShelf] = useState(false);
     const [ myShelf, setMyShelf ] = useState([]);
 
+    const [P , setP ] = useState(0);
+    const [L , setL ] = useState(0);
+    const [R , setR ] = useState(0);
+
+
     useEffect(() => {
        
         fetch(API+'/shelf/user/2')
         .then(res=>res.json())
-        .then(res=> setMyShelf(res))
+        .then(res=> {
+            setMyShelf(res);
+            setP(res.filter( s=>s.tr_type==='PURCHASED' ).length);
+            setR(res.filter( s=>s.tr_type==='RENTED' ).length)
+            setL(res.filter( s=>s.tr_type==='LENTED' ).length)
+        })
         .catch(err=> console.log(err))
 
 
@@ -25,8 +35,8 @@ function UserSideNav() {
         <>
 
 
-                <h4 className="text-success">
-                    My Profile
+                <h4 className="text-success" >
+                    <Link to="/user/my-profile" className="text-success">MY PROFILE</Link>
                 </h4>
                 <hr />
           
@@ -58,30 +68,18 @@ function UserSideNav() {
                                     <>
                                     <li className="list-group-item">
                                         Purchased 
-                                        <Badge bg="primary">
-                                            {myShelf.filter( s=> s.tr_type==='PURCHASED').length}
-                                        </Badge>  
+                                        <Badge bg="primary"> {P} </Badge>  
                                             
                                     </li>    
                                     <li className="list-group-item">
                                         Rented
-                                        <Badge  bg="primary">
-                                            {myShelf.filter( s=> s.tr_type==='RENTED').length}
-                                        </Badge>
+                                        <Badge  bg="primary">{R}</Badge>
                                     </li>
                                     <li className="list-group-item">
                                         Lented 
-                                        <Badge  bg="primary">
-                                            {myShelf.filter( s=> s.tr_type==='LENTED').length}
-                                        </Badge>
+                                        <Badge  bg="primary">{L} </Badge>
                                     </li>
-                                    <li className="list-group-item">
-                                        Wish List
-                                        <Badge  bg="primary">
-                                            {myShelf.filter( s=> s.tr_type==='WISHLIST').length}
-                                        </Badge>
-                                    </li>
-                                    <li className="list-group-item"><Link to="/user/update-my-profile">See All</Link>  </li>
+                                    <li className="list-group-item"><Link to="/user/my-shelf">See All</Link>  </li>
                                     </>
                                 }
                                 
@@ -91,7 +89,7 @@ function UserSideNav() {
                 
 
                 <Nav.Link>
-                    
+                                                             
                 </Nav.Link>
 
                 <Nav.Link>
@@ -105,3 +103,5 @@ function UserSideNav() {
     )
 }
 export default UserSideNav
+
+          

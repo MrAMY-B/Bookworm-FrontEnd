@@ -1,6 +1,6 @@
 import {  Collapse, Nav } from 'react-bootstrap'
 import React, { useState } from 'react'
-import { MdArrowDropDown } from 'react-icons/md';
+import { MdArrowDropDown,MdOpenInNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 function AdminSideNav() {
@@ -121,6 +121,16 @@ function AdminSideNav() {
                                         <li className="list-group-item"><Link to="/admin/pubisher" >See Publisher</Link></li>
                                     </ul>
                             </Collapse>
+                        </div>
+                        <hr />
+                        <div>
+                            <Nav.Link  as={Link} to="/admin/view-transactions">
+                                <h6 aria-controls="pub">
+                                     <MdOpenInNew /> Transactions 
+                                    
+                                </h6>
+                            </Nav.Link>
+                           
                         </div>
 
 

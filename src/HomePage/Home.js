@@ -3,8 +3,6 @@ import { API } from '../UtilComponents/API';
 import SaperatorByCategory from './SaperatorByCategory'
 
 function Home() {
-    // const prodlist = ['prod1','prod2','prod3','prod4','prod5','prod6'];
-    // let productCategories = ['E-Book','Audio-Book','Music'];
 
 
     let x = 10;

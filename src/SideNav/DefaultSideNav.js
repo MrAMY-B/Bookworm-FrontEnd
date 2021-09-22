@@ -2,7 +2,7 @@ import {  Collapse, Nav } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { LOCAL_API } from '../UtilComponents/API';
+import { API } from '../UtilComponents/API';
 
 function DefaultSideNav() {
     let x= 10;
@@ -16,19 +16,19 @@ function DefaultSideNav() {
     const [ gEN,setGEN] = useState([])
 
     useEffect(() => {
-        fetch(LOCAL_API+'/category/all')
+        fetch(API+'/category/all')
         .then(res=> res.json())
         .then(res=> setCATE(res))
     }, [x])
 
     useEffect(() => {
-        fetch(LOCAL_API+'/language/all')
+        fetch(API+'/language/all')
         .then(res=> res.json())
         .then(res=> setLANG(res))
     }, [x])
 
     useEffect(() => {
-        fetch(LOCAL_API+'/genre/all')
+        fetch(API+'/genre/all')
         .then(res=> res.json())
         .then(res=> setGEN(res))
     }, [x])
@@ -37,7 +37,7 @@ function DefaultSideNav() {
         <>
 
 
-                <h4 className="text-success text-center">
+                <h4 className="text-success">
                     Quick Nav
                 </h4>
                 <hr />
@@ -54,7 +54,7 @@ function DefaultSideNav() {
                                     { cATE?.length===0 ? 
                                     <li className="list-group-item"><Link to="/">Wait</Link>  </li>
                                     : 
-                                    cATE.map( (c)=> <li className="list-group-item"><Link to={`/all-products-by-category/${c?.category}/${c?.cate_id}`}>{c?.category}</Link></li>)}
+                                    cATE.map( (c,i)=> <li key={i} className="list-group-item"><Link to={`/all-products-by-category/${c?.category}/${c?.cate_id}`}>{c?.category}</Link></li>)}
                                     
                                  </ul>
                         </Collapse>
@@ -72,7 +72,7 @@ function DefaultSideNav() {
                             { lANG?.length===0 ? 
                                     <li className="list-group-item"><Link to="/">Wait</Link>  </li>
                                     : 
-                                    lANG.map( (l)=> <li className="list-group-item"><Link to={`/all-products-by-category/${l?.language}/${l?.lang_id}`}>{l?.language}</Link></li>)}
+                                    lANG.map( (l,i)=> <li key={i} className="list-group-item"><Link to={`/all-products-by-category/${l?.language}/${l?.lang_id}`}>{l?.language}</Link></li>)}
                             </ul>
                     </Collapse>
                 </div>
@@ -87,7 +87,7 @@ function DefaultSideNav() {
                             { gEN?.length===0 ? 
                                     <li className="list-group-item"><Link to="/">Wait</Link>  </li>
                                     : 
-                                    gEN.map( (g)=> <li className="list-group-item"><Link to={`/all-products-by-category/${g?.genre}/${g?.gen_id}`}>{g?.genre}</Link> </li>)}
+                                    gEN.map( (g,i)=> <li key={i} className="list-group-item"><Link to={`/all-products-by-category/${g?.genre}/${g?.gen_id}`}>{g?.genre}</Link> </li>)}
                             </ul>
                     </Collapse>
                 </div>

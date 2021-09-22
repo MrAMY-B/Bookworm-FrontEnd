@@ -1,25 +1,34 @@
-import React from 'react'
-import { Col, NavDropdown, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
-import ProductCard from './ProductCard';
+import React, { useEffect, useState } from 'react'
+import SaperatorByCategory from '../HomePage/SaperatorByCategory';
+import { API } from '../UtilComponents/API';
 
 function LibraryProducts() {
     
+    let x = 10;
+    const [ categories,setCategories] = useState([])
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        fetch(API+'/category/all')
+            .then(res=> res.json())
+            .then(res=> setCategories(res))
+            .catch(err=> console.log(err))
+    }, [x])
+
+    useEffect(()=>{
+        fetch(API+'/product/all')
+        .then( res=> res.json())
+        .then( res=> setProducts(res) )
+        .catch( err=> console.log(err) )
+    },[x])
     
     return (
         <>
-            <h1>{category}</h1>
-            <Row className="mx-0 mb-4">
-                
-                { prodlist.slice(0,5).map( (product,i) =>  <Col key={i} className="col-md-2 col-sm-3 col-6"><ProductCard product={product} /></Col> ) }
-                
-                <Link to="/product-by-category">  See all {category} here... </Link>
-                <NavDropdown.Divider />
-            </Row>
-            
+            <h1 className="text-center text-success">Library Products</h1>
+            { categories?.length===0 ? null :
+            categories.map( (oneCate,index) => <SaperatorByCategory key={index} oneCate={oneCate} prodlist={products.filter(p=>p.is_rentable)} /> )}
         </>
     )
-    }
+}
 
 export default LibraryProducts

@@ -4,7 +4,7 @@ import MyNavbar from './Header/MyNavbar';
 import { BrowserRouter as Router, } from 'react-router-dom'
 
 import MyFooter from './Footer/MyFooter';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Offcanvas, Row } from 'react-bootstrap';
 import MyRouterSwitch from './AllRoutes/MyRouterSwitch';
 import AdminSideNav from './SideNav/AdminSideNav';
 import UserSideNav from './SideNav/UserSideNav';
@@ -16,27 +16,34 @@ class App extends Component{
       super(props);
 
       this.state=({
-        user_type:"ADMIN"
+        user_type:"ADMIN",
+        sidePanelForSmallSize:false
       })
 
       this.changeUser = ()=>{
         if(this.state.user_type==='ADMIN')
-          this.setState({user_type:'USER'})
+          this.setState({...this.state,user_type:'USER'})
         else if(this.state.user_type==='USER')
-          this.setState({user_type:'DEFALUT'})
+          this.setState({...this.state, user_type:'DEFALUT'})
         else
-          this.setState({user_type:'ADMIN'})
+          this.setState({...this.state,user_type:'ADMIN'})
 
         
-      } 
+      }
+
+      this.sidePanel = ()=>{
+        this.setState({...this.state,sidePanelForSmallSize:!this.state.sidePanelForSmallSize})
+        console.log("SIDE PANEL"+this.state.sidePanelForSmallSize);
+      }
 
     }
+    
   render(){
   return (
       <div className="App">
         <Router>
            {/*======== NAVBAR ======== */}
-           <MyNavbar changeUser={this.changeUser}/>
+           <MyNavbar sidePanel={this.sidePanel} changeUser={this.changeUser}/>
            {/* <UserIconPanel /> */}
 
             {/*======== PAGE ======== */}
@@ -44,6 +51,16 @@ class App extends Component{
 
               <Row>
                 {/*======== SIDE NAV ======== */}
+                {/* ---------------FOR MOBILE VIEW-------------------- */}
+                <Offcanvas backdropClassName="d-sm-none d-block" show={this.state.sidePanelForSmallSize} onHide={this.sidePanel}>
+                  <Offcanvas.Header closeButton>
+                    <Offcanvas.Title></Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body className="text-center">
+                      {this.state.user_type === 'ADMIN' ?  <AdminSideNav /> : this.state.user_type ==='USER' ? <UserSideNav/> : <DefaultSideNav />}
+                  </Offcanvas.Body>
+                </Offcanvas>
+                {/* --------------------FOR DESKTOP VIEW--------------- */}
                   <Col className="col-lg-2 py-3 col-md-3 d-md-block d-none bg-light border-end min-vh-100">
                         {this.state.user_type === 'ADMIN' ?  <AdminSideNav /> : this.state.user_type ==='USER' ? <UserSideNav/> : <DefaultSideNav />}
                   </Col>
