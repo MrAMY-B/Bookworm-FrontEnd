@@ -42,7 +42,7 @@ const UpdateProductPublisher = () => {
     
         let publisherValidator = Yup.object({
             name:Yup.string().required('Required'),
-            email:Yup.string().required('Required'),
+            email:Yup.string().required('Required').email('Enter valid email'),
             mobile:Yup.string().required('Required'),
             address:Yup.object({ address:Yup.string().required('Required'),city:Yup.string().required('Required'),pin_code:Yup.string().required('Required')}),
             account:Yup.object({ acc_number:Yup.string().required('Required').max(10,'Max 10 digit'), bank_name:Yup.string().required('Required'),branch:Yup.string().required('Required'),acc_type:Yup.string().required('Required'),pan_no:Yup.string().required('Required'),ifsc:Yup.string().required('Required') })
@@ -81,7 +81,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
                             <Field className="form-control" type="text" name="name" />
-                            <ErrorMessage className="form-text text-muted" name="name" />
+                            <ErrorMessage  name="name" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -89,7 +91,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <Field className="form-control" type="text"  id="email" name="email" />
-                            <ErrorMessage className="form-text text-muted" name="email" />
+                            <ErrorMessage   name="email" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -97,14 +101,18 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                                 <label htmlFor="mobile">Mobile</label>
                                 <Field className="form-control" type="text" id="mobile" name="mobile" />
-                                <ErrorMessage className="form-text text-muted" name="mobile" />
+                                <ErrorMessage name="mobile" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                     <Col className="col-md-4 col-6">
                         <div className="form-group">
                             <label htmlFor="address">Addres</label>
                             <Field className="form-control" type="text"  id="address" name="address.address" />
-                            <ErrorMessage className="form-text text-muted" name="address.address" />
+                            <ErrorMessage  name="address.address" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -112,7 +120,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="city">City</label>
                             <Field className="form-control" type="text" id="city" name="address.city" />
-                            <ErrorMessage className="form-text text-muted" name="address.city" />
+                            <ErrorMessage name="address.city" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
     
@@ -120,7 +130,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="pin_code">Pin Code</label>
                             <Field className="form-control" type="text" id="pin_code" name="address.pin_code" />
-                            <ErrorMessage className="form-text text-muted" name="address.pin_code" />
+                            <ErrorMessage  name="address.pin_code" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
                 </Row>
@@ -132,7 +144,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="acc_number">Account Number</label>
                             <Field className="form-control" type="text" id="acc_number" name="account.acc_number" />
-                            <ErrorMessage className="form-text text-muted" name="account.acc_number" />
+                            <ErrorMessage  name="account.acc_number" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 
@@ -140,7 +154,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="bank_name">Bank Name</label>
                             <Field className="form-control" type="text" id="bank_name" name="account.bank_name" />
-                            <ErrorMessage className="form-text text-muted" name="account.bank_name" />
+                            <ErrorMessage  name="account.bank_name" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 
@@ -148,7 +164,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="branch">Branch</label>
                             <Field className="form-control" type="text" id="branch" name="account.branch" />
-                            <ErrorMessage className="form-text text-muted" name="account.branch" />
+                            <ErrorMessage  name="account.branch" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 
@@ -156,7 +174,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="acc_type">Account Type</label>
                             <Field className="form-control" type="text" id="acc_type" name="account.acc_type" />
-                            <ErrorMessage className="form-text text-muted" name="account.acc_type" />
+                            <ErrorMessage name="account.acc_type" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 
@@ -164,7 +184,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="ifsc">IFSC</label>
                             <Field className="form-control" type="text" id="ifsc" name="account.ifsc" />
-                            <ErrorMessage className="form-text text-muted" name="account.ifsc" />
+                            <ErrorMessage name="account.ifsc" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 
@@ -172,7 +194,9 @@ const UpdateProductPublisher = () => {
                         <div className="form-group">
                             <label htmlFor="pan_no">PAN Number</label>
                             <Field className="form-control" type="text" id="pan_no" name="account.pan_no" />
-                            <ErrorMessage className="form-text text-muted" name="account.pan_no" />
+                            <ErrorMessage name="account.pan_no" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>     
                     </Col>
 

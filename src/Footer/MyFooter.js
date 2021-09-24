@@ -8,7 +8,7 @@ function MyFooter() {
 
     return (
         <>
-        <Container fluid="true" className="mt-5">
+        <Container fluid="true" className="mt-5 doNotPrint">
           <Row className="pt-4 bg-dark text-center text-light mx-0 pb-sm-0 mb-sm-0">
             <Col md={4}  className='rounded my-1 mb-sm-4 col-6'>
                 <GroupMembers/>

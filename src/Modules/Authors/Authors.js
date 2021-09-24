@@ -78,7 +78,11 @@ function Authors() {
                                 <td>{auth.auth_id}</td>
                                 <td>{auth.name}</td>
                                 <td>{auth.email}</td>
-                                <td><Button variant="outline-success"><MdOpenInNew />  </Button></td>
+                                <td>
+                                    <Link to={'/admin/author/'+auth.auth_id}>
+                                        <Button variant="outline-success"><MdOpenInNew /> </Button>
+                                    </Link>
+                                </td> 
                                 <td> <Link to={'/admin/update-product/'+auth.auth_id}>
                                         <Button variant="outline-secondary"> 
                                             <FiEdit size={20} />

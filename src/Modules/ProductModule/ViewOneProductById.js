@@ -55,6 +55,7 @@ function ViewOneProductById() {
                     <hr />
                     <Row>
                         <Image src="https://picsum.photos/200/150" thumbnail />
+                        
                     </Row>
                    
                 </Col>
@@ -100,7 +101,7 @@ function ViewOneProductById() {
                 <h5>Product Description</h5>
                 <Col className="pb-2">
                 <p> Uploaded: {product.avl_date} </p>
-                <p> Length: {product.length} </p>
+                <p>{ product?.genre?.language?.category?.category==='E-Books'? 'Pages':'Time' } : {product.length} </p>
                 <p> Description: {product.short_desc} </p>
                 </Col>
                

@@ -45,6 +45,14 @@ import RentProduct from '../Modules/Transactions/RentProduct';
 import LentProduct from '../Modules/Transactions/LentProduct';
 import ViewAllTransaction from '../Modules/Transactions/ViewAllTransaction';
 import UploadProductImage from '../Modules/ProductModule/UploadProductImage';
+import AllBeneficiary from '../Modules/Beneficiary/AllBeneficiary';
+import AddBeneficiary from '../Modules/Beneficiary/AddBeneficiary';
+import UpdateBeneficiary from '../Modules/Beneficiary/UpdateBeneficiary';
+import ViewBeneficiaryById from '../Modules/Beneficiary/ViewBeneficiaryById';
+import OneAuthor from '../Modules/Authors/OneAuthor';
+import OnePublisher from '../Modules/Publishers/OnePublisher';
+import GenerateInvoice from '../Modules/Transactions/GenerateInvoice';
+import AdminHome from '../Admin/AdminHome';
 
 function MyRouterSwitch() { 
     return (
@@ -78,6 +86,7 @@ function MyRouterSwitch() {
                 {/* ||||ADMIN|||| */}
 
                 {/* ============CATEGORY============= */}
+                <Route exact path="/admin/admin-home" component={AdminHome} />
                 <Route exact path="/admin/categories" component={AllCategroies}/>
 
                 <Route exact path="/admin/update-category/:cate_id" component={UpdateCategory} />
@@ -105,7 +114,7 @@ function MyRouterSwitch() {
                 {/* ===================PRODUCT=============== */}
                 <Route exact path="/admin/products" component={AllProducts} />
                 <Route exact path="/admin/add-product" component={AddProduct } />
-                <Route exact path="/admin/add-front-image/:prod_id" component={UploadProductImage } />
+                <Route exact path="/admin/add-product-files/:prod_id" component={UploadProductImage } />
                 
 
                 <Route exact path="/admin/update-product/:prod_id" component={UpdateProduct} />
@@ -114,7 +123,16 @@ function MyRouterSwitch() {
                 <Route exact path="/admin/update-product-authors/:prod_id" component={UpdateProductAuthors} />
                 
                 <Route exact path="/admin/authors" component={Authors} />
-                <Route exact path="/admin/pubisher" component={Publishers} />
+                <Route exact path="/admin/author/:auth_id" component={OneAuthor} />
+
+               
+                <Route exact path="/admin/pubishers" component={Publishers} />
+                <Route exact path="/admin/publisher/:pub_id" component={OnePublisher} />
+                {/* --------------------- */}
+                <Route exact path="/admin/baneficiaries" component={AllBeneficiary} />
+                <Route exact path="/admin/add-beneficiary" component={AddBeneficiary} />
+                <Route exact path="/admin/update-beneficiary/:ban_id" component={UpdateBeneficiary} />
+                <Route exact path="/admin/beneficiary/:ban_id" component={ViewBeneficiaryById} />
                 
                 {/* --------------------- */}
                 <Route exact path="/admin/add-authors-to-product/:prod_id" component={AddAuthorsToProduct} />
@@ -123,6 +141,7 @@ function MyRouterSwitch() {
                 <Route exact path="/user/my-profile" component={MyProfile} />
                 <Route exact path="/user/update-my-profile" component={UpdateProfile} />
                 <Route exact path="/user/my-shelf" component={MyShelf} />
+                <Route exact path="/user/generate-invoice/:u_id" component={GenerateInvoice} />
 
 
 

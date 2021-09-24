@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Col, NavDropdown, Row } from 'react-bootstrap';
 
 import ProductCard from './ProductCard';
@@ -18,6 +19,7 @@ function SaperatorByCategory(props) {
                                                                 <ProductCard product={product} />
                                                             </Col> ) }
                 
+                <Link to={"/products-by-category/"+oneCate.cate_id} > See All {oneCate.category} Category </Link>
                 <NavDropdown.Divider />
             </Row>
             

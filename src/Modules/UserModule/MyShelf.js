@@ -103,6 +103,7 @@ function MyShelf() {
                             <th>No.</th>
                             <th>Cover</th>
                             <th>Title</th>
+                            <th>Valid</th>
                             <th>Visit</th>
                             </tr> 
                         </thead>

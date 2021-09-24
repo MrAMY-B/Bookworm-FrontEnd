@@ -25,7 +25,7 @@ function Home() {
 
     return (
         <>
-            <h1 className="text-center text-success">Trending Products</h1>
+            <h1 className="text-center text-success">Welcome</h1>
             { categories?.length===0 ? null :
             categories.map( (oneCate,index) => <SaperatorByCategory key={index} oneCate={oneCate} prodlist={products} /> )}
         </>

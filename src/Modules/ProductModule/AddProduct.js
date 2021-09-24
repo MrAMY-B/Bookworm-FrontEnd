@@ -9,29 +9,42 @@ import { API } from '../../UtilComponents/API'
 
 function AddProduct() {
 
+    const x = 5;
     const [result, setResult] =useState('')
+    const [ publishers, setPublishers ] = useState([])
     const history = useHistory();
 
     const [cate, setCate] = useState([])
     const [lang, setLang] = useState([])
     const [gen, setGen] = useState([])
 
-    useEffect(()=>{fetch(API+'/category/all').then(res=>res.json()).then(res=>setCate(res)); },[result]);
+    useEffect(()=>{fetch(API+'/category/all').then(res=>res.json()).then(res=>setCate(res)); },[x]);
+    useEffect(()=>{fetch(API+'/publisher/all').then(res=>res.json()).then(res=>setPublishers(res)); },[x]);
     let changeCate=(e)=>{ let selected=e.target.value;
         setGen([])
         fetch(API+'/language/by-cate-id/'+selected)
         .then( res=> res.json() )
-        .then( res=> setLang(res))
+        .then( res=> { 
+            setLang(res);
+            console.log(res);
+        } )
         .catch(err=>console.log(err))
 
+
+
     }
+    
     let changeLanguage=(e)=>{ let selected=e.target.value;
         fetch(API+'/genre/by-lang-id/'+selected)
         .then( res=> res.json() )
-        .then( res=> setGen(res))
+        .then( res=> {
+            setGen(res);
+            console.log(res);
+        })
         .catch(err=>console.log(err))
 
     }
+    
     // useEffect(()=>{ fetch('https://amol-bookworm-api.herokuapp.com/language/all').then(res=>res.json()).then(res=>setLang(res));},[cate]);
     // useEffect(()=>{fetch('https://amol-bookworm-api.herokuapp.com/genre/all').then(res=>res.json()).then(res=>setGen(res));},[lang]);
 
@@ -82,12 +95,11 @@ function AddProduct() {
         alert(JSON.stringify(values));
         console.log(JSON.stringify(values))
 
-        fetch(API+'/product/',
-            {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
+        fetch(API+'/product/', {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
         .then(res=> res.json())
         .then(res=> {
             setResult(<AlertComponent type="success" msg={'Product Added.., Now add Authors and publisher'} />)
-            setTimeout(()=>{ history.push('/admin/add-authors-to-product/'+res?.prod_id) } , 2000);
+            setTimeout(()=>{ history.push('/admin/add-product-files/'+res?.prod_id) } , 4000);
             console.log("SUCCESS");
         })
         .catch(err=> {
@@ -100,9 +112,23 @@ function AddProduct() {
 
     let finPro = useFormik({initialValues:initialPro,onSubmit:handleSubmit,validationSchema:prodValidation})
     
-    // const setCatId = (e)=>{finPro.setFieldValue(finPro.values.category.cate_id=e.target.value) }
-    // const setLangId = (e)=>{finPro.setFieldValue(finPro.values.language.lang_id=e.target.value) }
     const setGenId = (e)=>{finPro.setFieldValue(finPro.values.genre.gen_id=e.target.value) }
+    const setPublisherToProduct = (e)=>{ 
+        if(e.target.value==='9876'){
+            finPro.setFieldValue( finPro.values.publisher={ 
+                    name:'',
+                    email:'',
+                    mobile:'',
+                    address:{ address:'',city:'',pin_code:''},
+                    account:{ acc_number:'', bank_name:'',branch:'',acc_type:'',pan_no:'',ifsc:'' } 
+        } );
+        }else{
+            let ppppp = publishers.find((p) => p.pub_id===parseInt(e.target.value))
+        
+        finPro.setFieldValue( finPro.values.publisher=ppppp );
+        }   
+        
+    }
 
  
 
@@ -114,7 +140,8 @@ function AddProduct() {
                     <Col xs={12} className=" justify-content-center rounded  bg-light pt-4 pb-5 border rounded   shadow-lg">
                         {result}
                         <h1 className="text-center text-success">Add Product</h1>
-                        <hr />
+                        <small className="text-danger"><small>All fields are mendatory</small></small>
+                        <hr style={{marginTop:0}} />
                         <Form onSubmit={finPro.handleSubmit} onReset={finPro.handleReset}>
                             <Row>
                             <h5>Product Detail</h5>
@@ -122,7 +149,7 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>ISBN</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('isbn')} />
-                                        <Form.Text>
+                                        <Form.Text className="text-danger">
                                             {finPro.touched.isbn && finPro.errors.isbn ?
                                                 finPro.errors.isbn : null}
                                                 </Form.Text>
@@ -132,7 +159,7 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Title</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('title')} />
-                                        <Form.Text>
+                                        <Form.Text className="text-danger">
                                             {finPro.touched.title && finPro.errors.title ?
                                                 finPro.errors.title : null}
                                                 </Form.Text>
@@ -142,7 +169,7 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Title In English</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('title_in_english')} />
-                                        <Form.Text>
+                                        <Form.Text className="text-danger">
                                             {finPro.touched.title_in_english && finPro.errors.title_in_english ?
                                                 finPro.errors.title_in_english : null}
                                             </Form.Text>
@@ -162,7 +189,7 @@ function AddProduct() {
                                         <Form.Label>Language</Form.Label>
                                         <Form.Select name="lang_id" onChange={changeLanguage} >
                                             <option>Select Type</option>
-                                            {lang.map( (l , i)=> <option key={i} value={l.lang_id}>{l.language}</option> )}
+                                            {lang?.map( (l , i)=> <option key={i} value={l.lang_id}>{l.language}</option> )}
                                         </Form.Select>
                                     </Form.Group>   
                                 </Col>
@@ -184,14 +211,14 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Short Description</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('short_desc')}  />
-                                        <Form.Text>
+                                        <Form.Text className="text-danger">
                                             {finPro.touched.short_desc && finPro.errors.short_desc ? finPro.errors.short_desc:null}
                                         </Form.Text>
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Long Description</Form.Label>
                                         <Form.Control as="textarea" rows={3} {...finPro.getFieldProps('long_desc')}  />
-                                        <Form.Text>
+                                        <Form.Text className="text-danger">
                                             {finPro.touched.long_desc && finPro.errors.long_desc ? finPro.errors.long_desc:null}
                                         </Form.Text>
                                     </Form.Group>
@@ -201,17 +228,17 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Base Price</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('base_price')} />
-                                        <Form.Text>{ finPro.touched.base_price && finPro.errors.base_price ? finPro.errors.base_price: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.base_price && finPro.errors.base_price ? finPro.errors.base_price: null }</Form.Text>
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Saling Price</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('sale_price')} />
-                                        <Form.Text>{ finPro.touched.sale_price && finPro.errors.sale_price ? finPro.errors.sale_price: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.sale_price && finPro.errors.sale_price ? finPro.errors.sale_price: null }</Form.Text>
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Offer Price</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('offer_price')} />
-                                        <Form.Text>{ finPro.touched.offer_price && finPro.errors.offer_price ? finPro.errors.offer_price: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.offer_price && finPro.errors.offer_price ? finPro.errors.offer_price: null }</Form.Text>
                                     </Form.Group>
                                 </Col>
 
@@ -224,12 +251,27 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Length</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('length')} />
-                                        <Form.Text>{ finPro.touched.length && finPro.errors.length ? finPro.errors.length: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.length && finPro.errors.length ? finPro.errors.length: null }</Form.Text>
                                     </Form.Group>
                                 
                                 </Col>
                             </Row>
 
+                            <Row>
+                                <Col>
+                                      
+                                      <h1>Existing Publisher ?</h1> 
+                                      <Form.Group>
+                                        <Form.Label>Select one If Already Exist</Form.Label>
+                                        <Form.Select name="gen_id" onChange={setPublisherToProduct} >
+                                            <option value="9876">Select One</option>
+                                            {publishers.map( (p , i)=> <option key={i} value={p.pub_id}>[ID:{p.pub_id}] &nbsp;&nbsp;&nbsp;&nbsp; {p.name}</option> )}
+                                        </Form.Select>
+                                    </Form.Group>           
+
+                                </Col>
+                            </Row>
+                            <hr />
 
                             {/* ================================================================ */}
                             <Row >
@@ -238,7 +280,7 @@ function AddProduct() {
                                     <Form.Group>
                                             <Form.Label>Publisher Name</Form.Label>
                                             <Form.Control type="text" {...finPro.getFieldProps('publisher.name')} />
-                                            <Form.Text>{ finPro.touched.publisher?.name && finPro.errors.publisher?.name ? finPro.errors.publisher?.name: null }</Form.Text>
+                                            <Form.Text className="text-danger">{ finPro.touched.publisher?.name && finPro.errors.publisher?.name ? finPro.errors.publisher?.name: null }</Form.Text>
                                         </Form.Group>
                                 </Col>
 
@@ -246,7 +288,7 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.email')} />
-                                        <Form.Text>{ finPro.touched.publisher?.email && finPro.errors.publisher?.email ? finPro.errors.publisher?.email: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.email && finPro.errors.publisher?.email ? finPro.errors.publisher?.email: null }</Form.Text>
                                     </Form.Group>
                                 </Col>
 
@@ -254,7 +296,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Mobile</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.mobile')} />
-                                        <Form.Text>{ finPro.touched.publisher?.mobile && finPro.errors.publisher?.mobile ? finPro.errors.publisher?.mobile: null }</Form.Text>
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.mobile && finPro.errors.publisher?.mobile ? finPro.errors.publisher?.mobile: null }</Form.Text>
                                     </Form.Group>
                                     
                                 </Col>
@@ -262,7 +304,7 @@ function AddProduct() {
                                     <Form.Group>
                                         <Form.Label>Address</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.address.address')} />
-                                        <Form.Text>{ finPro.touched.publisher?.address?.address 
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.address?.address 
                                                         &&
                                                     finPro.errors.publisher?.address?.address 
                                                         ? 
@@ -280,7 +322,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>City</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.address.city')} />
-                                        <Form.Text>{ finPro.touched.publisher?.address?.city 
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.address?.city 
                                                         &&
                                                     finPro.errors.publisher?.address?.city 
                                                         ? 
@@ -295,7 +337,7 @@ function AddProduct() {
                                     <Form.Group>
                                             <Form.Label>Pin_code</Form.Label>
                                             <Form.Control type="text" {...finPro.getFieldProps('publisher.address.pin_code')} />
-                                            <Form.Text>{ finPro.touched.publisher?.address?.pin_code 
+                                            <Form.Text className="text-danger">{ finPro.touched.publisher?.address?.pin_code 
                                                         &&
                                                     finPro.errors.publisher?.address?.pin_code 
                                                         ? 
@@ -314,7 +356,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Account Number</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.acc_number')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.acc_number
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.acc_number
                                                     &&
                                                 finPro.errors.publisher?.account?.acc_number 
                                                     ? 
@@ -329,7 +371,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Bank</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.bank_name')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.bank_name
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.bank_name
                                                     &&
                                                 finPro.errors.publisher?.account?.bank_name 
                                                     ? 
@@ -344,7 +386,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Branch</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.branch')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.branch
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.branch
                                                     &&
                                                 finPro.errors.publisher?.account?.branch 
                                                     ? 
@@ -358,7 +400,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>IFSC</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.ifsc')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.ifsc
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.ifsc
                                                     &&
                                                 finPro.errors.publisher?.account?.ifsc 
                                                     ? 
@@ -373,7 +415,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Account Type</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.acc_type')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.acc_type
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.acc_type
                                                     &&
                                                 finPro.errors.publisher?.account?.acc_type 
                                                     ? 
@@ -387,7 +429,7 @@ function AddProduct() {
                                 <Form.Group>
                                         <Form.Label>Pan No</Form.Label>
                                         <Form.Control type="text" {...finPro.getFieldProps('publisher.account.pan_no')} />
-                                        <Form.Text>{ finPro.touched.publisher?.account?.pan_no
+                                        <Form.Text className="text-danger">{ finPro.touched.publisher?.account?.pan_no
                                                     &&
                                                 finPro.errors.publisher?.account?.pan_no 
                                                     ? 

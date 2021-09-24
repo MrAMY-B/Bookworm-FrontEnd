@@ -1,32 +1,89 @@
-
-import React from 'react'
-import { Button, Col, Container, Form, NavDropdown, Row } from 'react-bootstrap'
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { Button, Col, Container, NavDropdown, Row } from 'react-bootstrap'
+import { API} from '../UtilComponents/API';
+import AlertComponent from '../UtilComponents/AlertComponent';
+import authUser from './AuthUser';
 
 function AdminLogin() {
+
+   const [msg, setMsg] = useState('');
+   const history = useHistory();
+        
+
+
+    const loginUserInitial = {
+        email:'',
+        pass:''
+    }
+    const handleSubmit = values => {
+
+        alert(JSON.stringify(values))
+        
+        fetch(API+'/auth/admin',{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
+        .then( res => {
+            if( res.ok){
+                setMsg(<AlertComponent msg="Succesfully Logged in" type="success" />);
+                authUser.loginAdmin(()=>{setTimeout(()=>{ setMsg(''); history.push('/admin/admin-home'); },3000)});
+                console.log('ADMIN LOGGED IN')
+            }else{
+                setMsg(<AlertComponent msg="Invalid Credential.." type="warning" />); 
+                setTimeout(()=>{ setMsg(''); },3000); 
+            }
+        })
+        .catch(e => { setMsg(<AlertComponent msg="Invalid Credential.." type="warning" />); 
+                        setTimeout(()=>{ setMsg('') },3000);  
+                    })
+
+        
+    }
+
+    const userScemaValidation = Yup.object({
+                email:Yup.string().required('Required').email('Please enter correct email').trim(),
+                pass:Yup.string().required('Required').min(6,'Minimum 6 characters').trim()
+            })
+
+    
     return (
         <div>
             
             <Container  className="" >
-                
+               
                 <Row className="justify-content-center  p-4">
-                <Col lg={6} md={8} xs={11} className=" justify-content-center rounded  bg-light p-sm-4 border rounded  shadow-lg  ">
-                       <h1 className="text-center text-success">Admin Login</h1>
+                    
+                    <Col lg={6} md={8} xs={11} className=" justify-content-center rounded  bg-light p-sm-4 border rounded  shadow-lg  ">
+                       <h1 className="text-center text-success">ADMIN LOGIN</h1>
                         <NavDropdown.Divider />
-                        <Form>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Email </Form.Label>
-                                <Form.Control type="email" placeholder="Enter email here" />
-                            </Form.Group>
+                        {msg}
+                        <Formik initialValues={loginUserInitial} onSubmit={handleSubmit} validationSchema={userScemaValidation} >
+                            <Form>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <Field className="form-control" placeholder="Email here " type="email" name="email" />
+                                    <ErrorMessage name="email">
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
+                                </div>
 
-                            <Form.Group className="mb-4">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter Password Here" />
-                            </Form.Group>
-                            <div className="d-grid ">
+                                <div className="form-group">
+                                    <label htmlFor="pass">Pass</label>
+                                    <Field className="form-control" placeholder="Password here "  type="password" name="pass" />
+                                    <ErrorMessage name="pass">
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
+                                </div>
+
+                            <div className="d-grid mt-3">
                                 <Button variant="outline-success" type="submit" size="lg" >Login</Button>
                             </div>
-                        </Form>
-
+                            <hr />
+                            <p className="text-center"> New User ? <Link to="/SignUp">Register Here</Link> </p>
+                            </Form>
+                         </Formik>
+               
                     </Col>
                 </Row>
             </Container>

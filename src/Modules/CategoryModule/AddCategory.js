@@ -18,7 +18,6 @@ function AddCategory() {
         console.log("SUCCESS");
         
 
-        // fetch('https://amol-bookworm-api.herokuapp.com/category/',
         fetch(API+'/category/', {method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(cate)})
         .then(res => { if(res.ok){
             setShowSuccessAlert(true)

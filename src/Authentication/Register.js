@@ -12,7 +12,6 @@ function Register() {
     const initialValues = { uname:'',email:'', mobile:'', pass:'',  confpass:'',points:0,can_lent_product:0}
     const [res,setRes] = useState({})
     const history = useHistory();
-   
     
     const validateAddress = Yup.object({
         address:Yup.string().required('Required').min(4,'Minimum 4 charcter'),
@@ -132,10 +131,11 @@ function Register() {
                                 </Col>
                             </Row>
                             <Row className="justify-content-center text-center mt-3">
-                                <Col md={6} className="d-grid">
+                                <Col md={6} className="d-grid mb-2">
                                     <Button variant="outline-success" type="submit"  >Sign up</Button>
-                                   <p> Already Signed up? <Link to="/User-login">Login</Link></p>
                                 </Col>    
+                                <hr />
+                                <p className="text-center"> Already Signed up? <Link to="/User-login">Login</Link></p>
                             </Row>                            
 
                         </Form>

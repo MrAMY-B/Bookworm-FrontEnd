@@ -76,14 +76,18 @@ function Publishers() {
                             </thead>
                             <tbody> 
 
-                                { publisher.length===0 ? 'Loading data...' :  publisher.map( (pub,i)=> 
+                                { publisher.length===0 ? null :  publisher.map( (pub,i)=> 
                                 <tr key={i}>
                                 <td> {i+1}  </td>
                                 <td>{pub.pub_id}</td>
                                 <td>{pub.name}</td>
                                 <td>{pub.email}</td>
-                                <td><Button variant="outline-success"><MdOpenInNew />  </Button></td>
-                                <td> <Link to={'/admin/update-product/'+pub.pub_id}>
+                                <td>
+                                <Link to={'/admin/publisher/'+pub.pub_id}>
+                                    <Button variant="outline-success"><MdOpenInNew />  </Button>
+                                </Link>
+                                </td>
+                                <td> <Link to={'/admin/update-publisher/'+pub.pub_id}>
                                         <Button variant="outline-secondary"> 
                                             <FiEdit size={20} />
                                         </Button></Link> 

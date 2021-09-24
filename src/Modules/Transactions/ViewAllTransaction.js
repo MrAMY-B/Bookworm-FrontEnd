@@ -32,6 +32,7 @@ function ViewAllTransaction() {
                             <tr>
                                 <th>Tr_Id</th>
                                  <th>Product</th>
+                                 <th>Tr_Type</th>
                                 <th>User</th>
                                 <th>Amount</th>
                                 <th>Date</th>
@@ -54,6 +55,7 @@ function ViewAllTransaction() {
                                     </OverlayTrigger>
                                         
                                     </td>
+                                    <td>{tr.tr_type}</td>
                                 <td>
                                     {tr.user?.uname}
                                     

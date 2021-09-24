@@ -16,7 +16,7 @@ class App extends Component{
       super(props);
 
       this.state=({
-        user_type:"ADMIN",
+        user_type:localStorage.getItem('user_type')??"DEFALUT",
         sidePanelForSmallSize:false
       })
 
@@ -35,6 +35,10 @@ class App extends Component{
         this.setState({...this.state,sidePanelForSmallSize:!this.state.sidePanelForSmallSize})
         console.log("SIDE PANEL"+this.state.sidePanelForSmallSize);
       }
+
+      
+
+    
 
     }
     

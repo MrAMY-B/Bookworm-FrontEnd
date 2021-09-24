@@ -6,10 +6,11 @@ import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
 import AlertComponent from '../../UtilComponents/AlertComponent';
+import { API } from '../../UtilComponents/API';
 
 function UpdateProductAuthors() {
     
- 
+    
     const [result, setResult] = useState('')
     const [ authors,setAuthors ] = useState([])
     const history = useHistory();
@@ -92,7 +93,7 @@ function UpdateProductAuthors() {
         }
             
      }
-
+    
      const deleteAuthor = (index,authName) => {
          let x = prompt('Are you sure! want to delete '+authName+'?')
         
@@ -109,10 +110,18 @@ function UpdateProductAuthors() {
          }
             
      }
-
+     
+     const [allAuthors, setAllAuthors] = useState([])
+     useEffect(() => { fetch(API + '/author/all').then(res => res.json()).then(res => setAllAuthors(res)); }, [prod_id]);
+     const addAuthorToList = (e) => {
+        let aut = allAuthors.find((a) => a.auth_id === parseInt(e.target.value))
+        setAuthors([...authors, aut])
+    }
     return (
         <>
-      
+
+        
+               
 
         <Container fluid className="bg-light shadow p-sm-4">
         
@@ -149,6 +158,7 @@ function UpdateProductAuthors() {
                      </Row>
                 </Col>
             </Row>
+            <Row>
             <hr />
             {result}
         <Table bordered hover responsive className="text-center">
@@ -187,8 +197,26 @@ function UpdateProductAuthors() {
             </Table>
             <small><small><b>Note:</b> You can delete the record if you want</small></small><br/><br/>  
             <Button onClick={saveAuthors}  variant="outline-success" >Save and update authors</Button>
+            </Row>
             <hr />
-            
+            {/* ==============================EXISTING AUTHORS=============================== */}
+            <Row>
+                    <Col>
+
+                        <h3>Add New Existing </h3>
+                        <div className="form-group">
+                            <lable className="form-label">Select Already Exist</lable>
+                            <select className="form-select" name="allAuth" onChange={(e) => addAuthorToList(e)} >
+                                <option >Select One</option>
+                                {allAuthors?.map((a, i) => <option key={i} value={a.auth_id}>[ID:{a.auth_id}] &nbsp;&nbsp;&nbsp;&nbsp; {a.name}</option>)}
+                            </select>
+                        </div>
+
+
+                    </Col>
+                </Row>
+                <hr />
+            {/* ============================================================================== */}         
         <Formik initialValues={initAuthor} onSubmit={handleSubmit}  validationSchema={authorValidation} >
             <Form className="mb-3 pb-3">
                 
@@ -198,7 +226,9 @@ function UpdateProductAuthors() {
                         <div className="form-group input-group-sm">
                             <div className="form-label">Name</div>
                             <Field className="form-control" type="text" name="name" />
-                            <ErrorMessage className="form-text text-muted" name="name" />
+                            <ErrorMessage name="name" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -206,7 +236,9 @@ function UpdateProductAuthors() {
                         <div className="form-group input-group-sm">
                             <div className="form-label">Email</div>
                             <Field className="form-control" type="text" name="email" />
-                            <ErrorMessage className="form-text text-muted"  name="email" />
+                            <ErrorMessage name="email" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -214,14 +246,18 @@ function UpdateProductAuthors() {
                         <div className="form-group input-group-sm">
                             <div className="form-label">Mobile</div>
                             <Field className="form-control" type="text" name="mobile" />
-                            <ErrorMessage className="form-text text-muted" name="mobile" />
+                            <ErrorMessage name="mobile" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                    <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">Address</div>
                             <Field className="form-control" type="text" name='address.address' />
-                            <ErrorMessage className="form-text text-muted" name="address.address" />
+                            <ErrorMessage  name="address.address" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -229,7 +265,9 @@ function UpdateProductAuthors() {
                         <div className="form-group input-group-sm">
                             <div className="form-label">City</div>
                             <Field className="form-control" type="text" name="address.city" />
-                            <ErrorMessage className="form-text text-muted" name="address.city" />
+                            <ErrorMessage name="address.city" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -237,44 +275,49 @@ function UpdateProductAuthors() {
                         <div className="form-group input-group-sm">
                             <div className="form-label">Pincode</div>
                             <Field className="form-control" type="text" name="address.pin_code" />
-                            <ErrorMessage className="form-text text-muted" name="address.pin_code" />
+                            <ErrorMessage  name="address.pin_code" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                 </Row>
-                <div className="form-check">
-                    <Field className="form-check-input" type="checkbox" name="has_beneficiary" id="hasBani"/>
-                        <label className="form-check-label" htmlFor="hasBani">
-                            has Banificiary
-                        </label>
-                </div>
+               
                 <Row>
                     <h5 className="text-success">Authors Account Info</h5>
                 <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">Account No.</div>
                             <Field className="form-control" type="text" name="account.acc_number" />
-                            <ErrorMessage className="form-text text-muted" name="account.acc_number" />
+                            <ErrorMessage  name="account.acc_number" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                     <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">Bank Name</div>
                             <Field className="form-control" type="text" name="account.bank_name" />
-                            <ErrorMessage className="form-text text-muted" name="account.bank_name" />
+                            <ErrorMessage name="account.bank_name" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                     <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">Branch Name.</div>
                             <Field className="form-control" type="text" name="account.branch" />
-                            <ErrorMessage className="form-text text-muted" name="account.branch" />
+                            <ErrorMessage name="account.branch">
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                     <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">IFSC.</div>
                             <Field className="form-control" type="text" name="account.ifsc" />
-                            <ErrorMessage className="form-text text-muted" name="account.ifsc" />
+                            <ErrorMessage  name="account.ifsc" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 
@@ -288,14 +331,18 @@ function UpdateProductAuthors() {
                                 <option>Business</option>
                                 
                             </Field>
-                            <ErrorMessage className="form-text text-muted" name="account.acc_type" />
+                            <ErrorMessage name="account.acc_type" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
                     <Col className="col-md-4 col-6">
                         <div className="form-group input-group-sm">
                             <div className="form-label">Authors PAN no.</div>
                             <Field className="form-control" type="text" name="account.pan_no" />
-                            <ErrorMessage className="form-text text-muted" name="account.pan_no" />
+                            <ErrorMessage name="account.pan_no" >
+                                         { m => <div className="text-danger">{m}</div> }
+                                    </ErrorMessage>
                         </div>
                     </Col>
 

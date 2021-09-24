@@ -39,7 +39,7 @@ function RentProduct() {
         .then(res=>{
             console.log(res)
             if(res==='SUCCESSFULL'){
-                setMsg(<AlertComponent type="danger"  msg="Successfully Rented" />)
+                setMsg(<AlertComponent type="success"  msg="Successfully Rented" />)
                 setTimeout(()=>{setMsg(''); history.push("/user/my-shelf")},2000)
             }else
             setMsg(<AlertComponent type="danger"  msg="Something went Wrong try again leter" />)

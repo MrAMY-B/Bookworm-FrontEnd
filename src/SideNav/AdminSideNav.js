@@ -10,6 +10,7 @@ function AdminSideNav() {
     const [openP, setOpenP] = useState(false);
     const [openU, setOpenU] = useState(false);
     const [openAU, setOpenAU] = useState(false);
+    const [openB, setOpenB] = useState(false);
     const [openPU, setOpenPU] = useState(false);
 
 
@@ -112,13 +113,28 @@ function AdminSideNav() {
 
                         <div>
                             <Nav.Link>
+                                <h6 onClick={() => setOpenB(!openB)} aria-controls="bane">
+                                    <MdArrowDropDown/> Baneficiary
+                                </h6>
+                            </Nav.Link>
+                            <Collapse in={openB}>
+                                    <ul className="  list-group-flush" id="bane">
+                                        <li className="list-group-item"><Link to="/admin/baneficiaries" >See Baneficiaries</Link></li>
+                                        <li className="list-group-item"><Link to="/admin/add-beneficiary" >Add Baneficiary</Link></li>
+                                    </ul>
+
+                            </Collapse>
+                        </div>
+
+                        <div>
+                            <Nav.Link>
                                 <h6 onClick={() => setOpenPU(!openPU)} aria-controls="pub">
                                     <MdArrowDropDown/> Publisher
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openPU}>
                                     <ul className="  list-group-flush" id="pub">
-                                        <li className="list-group-item"><Link to="/admin/pubisher" >See Publisher</Link></li>
+                                        <li className="list-group-item"><Link to="/admin/pubishers" >See Publisher</Link></li>
                                     </ul>
                             </Collapse>
                         </div>
