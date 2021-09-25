@@ -155,7 +155,7 @@ function MyRouterSwitch({updateUser}) {
                 <Route exact path="/user/my-profile" component={MyProfile} />
                 <Route exact path="/user/update-my-profile" component={UpdateProfile} />
                 <Route exact path="/user/my-shelf" component={MyShelf} />
-                <Route exact path="/user/generate-invoice/:u_id" component={GenerateInvoice} />
+                <Route exact path="/user/generate-invoice" component={GenerateInvoice} />
 
 
 

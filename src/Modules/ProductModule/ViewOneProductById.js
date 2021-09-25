@@ -156,17 +156,25 @@ function ViewOneProductById() {
             <Row className="pt-2"> 
                 <Col >
             
+
                     {product.is_rentable ?
-                        <Button variant="warning" as={Link} to={"/rent-product/"+product.prod_id} > Rent </Button>
+                        
+                        <>
+                       
+                        <Button variant="warning" as={Link} to={
+                            localStorage.getItem('isLoggedIn')!=='true' ? '/User-Login': "/rent-product/"+product.prod_id} > Rent </Button>
+                        </>
                         : null
                     }
                     &nbsp;&nbsp;
                     {product.is_library ?
-                    <Button variant="danger" as={Link} to={"/lent-product/"+product.prod_id} > Lent </Button>
+                    <Button variant="danger" as={Link} to={
+                        localStorage.getItem('isLoggedIn')!=='true' ? '/User-Login':"/lent-product/"+product.prod_id} > Lent </Button>
                     : null
                     } 
                     &nbsp;&nbsp;
-                <Button variant="success" as={Link} to={"/buy-product/"+product.prod_id} > Buy </Button> 
+                <Button variant="success" as={Link} to={    
+                        localStorage.getItem('isLoggedIn')!=='true' ? '/User-Login':"/buy-product/"+product.prod_id} > Buy </Button> 
                     
                 </Col>
 

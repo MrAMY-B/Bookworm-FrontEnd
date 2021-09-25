@@ -7,7 +7,7 @@ import { FiUser } from 'react-icons/fi'
 
 function MyProfile() {
 
-    let uid = 2;
+    let uid = localStorage.getItem("u_id");
     let [user ,setUser] = useState({})
 
      useEffect(()=>{

@@ -8,7 +8,7 @@ import { API } from '../../UtilComponents/API';
 function GenerateInvoice() {
 
     
-    let {u_id} = useParams('u_id')
+    let {u_id} = localStorage.getItem('u_id')
     // const history = useHistory();
     const [orders, setOrders] = useState([])
     const [ oneTrans, setOneTrans ] = useState()

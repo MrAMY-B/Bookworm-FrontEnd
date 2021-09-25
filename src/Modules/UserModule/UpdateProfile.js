@@ -8,7 +8,7 @@ import { API } from '../../UtilComponents/API';
 
 function UpdateProfile() {
 
-    let u_id = 2;
+    let u_id = localStorage.getItem("u_id");
 
     const [user, setUser] = useState({ uname:'',email:'', mobile:'', pass:'',  confpass:'',
                                     address:{ address:'', city:'', pin_code:''}})

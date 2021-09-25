@@ -6,7 +6,7 @@ import { API } from '../../UtilComponents/API';
 
 function MyShelf() {
 
-    let u_id = 2;
+    let u_id = localStorage.getItem("u_id");
     const [shelfs, setShelfs] = useState([]);
     const [P , setP ] = useState(0);
     const [L , setL ] = useState(0);

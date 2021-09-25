@@ -24,7 +24,7 @@ function UserLogin({updateUser}) {
             .then(res => {
                 console.log(res)
                 setMsg(<AlertComponent msg="Succesfully Logged in" type="success" />);
-                authUser.loginUser(res, () => { setTimeout(() => { updateUser(); history.push('/user/my-shelf'); }, 2000) })
+                authUser.loginUser(res, () => { setTimeout(() => { updateUser(); history.push('/user/my-profile'); }, 2000) })
 
 
             })

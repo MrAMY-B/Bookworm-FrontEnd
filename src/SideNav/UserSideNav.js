@@ -7,7 +7,7 @@ import { API } from '../UtilComponents/API';
 
 function UserSideNav() {
     
-    let u_id = 2;
+    let u_id = localStorage.getItem("u_id");
     const [openAccOp, setOpenAccOp] = useState(false);
     const [openShelf, setOpenShelf] = useState(false);
     const [myShelf, setMyShelf] = useState([]);
@@ -80,16 +80,17 @@ function UserSideNav() {
                                         Lented &nbsp;&nbsp;&nbsp;
                                         <Badge pill bg="primary">{L} </Badge>
                                     </li>
-                                    <li className="list-group-item"><Link to="/user/my-shelf">See All</Link>  </li>
-                                </>
+                                   
+                                    </>
                             }
-
+                            <li className="list-group-item"><Link to="/user/my-shelf">See All</Link>  </li>
+                            
                         </ul>
                     </Collapse>
                 </div>
                 <hr className="my-0" />
                 <div>
-                    <Nav.Link as={Link} to={'/user/generate-invoice/'+u_id} >
+                    <Nav.Link as={Link} to={'/user/generate-invoice/'} >
                         <h6 >
                             <MdOpenInNew /> Generate Invoice
                         </h6>
