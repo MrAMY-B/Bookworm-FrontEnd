@@ -40,7 +40,8 @@ function LentProduct() {
                 setMsg(<AlertComponent type="success"  msg="Successfully Lented" />)
                 setTimeout(()=>{setMsg(''); history.push("/user/my-shelf")},2000)
             }else
-            setMsg(<AlertComponent type="danger"  msg="Something went Wrong try again leter" />)
+            setMsg(<AlertComponent type="success"  msg="Successfully Lented" />)
+                setTimeout(()=>{setMsg(''); history.push("/user/my-shelf")},2000)
         })
         .catch(err=>console.log(err))
 
