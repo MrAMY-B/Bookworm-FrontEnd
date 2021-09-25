@@ -27,7 +27,7 @@ function RentProduct() {
         let shelfObj = {
             tr_type:"RENTED",
             prod_expiry:new Date().toJSON(),
-           user:{ u_id:2 },
+            user:{ u_id:localStorage.getItem('u_id') },
            amt,
            product:{prod_id }
         }

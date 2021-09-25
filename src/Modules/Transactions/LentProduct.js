@@ -26,7 +26,7 @@ function LentProduct() {
         let shelfObj = {
             tr_type:"LENTED",
             prod_expiry:new Date().toJSON(),
-           user:{ u_id:2 },
+            user:{ u_id:localStorage.getItem('u_id') },
            product:{prod_id }
         }
         shelfObj=JSON.stringify(shelfObj)

@@ -59,6 +59,8 @@ import Feedback from '../Feedback/Feedback'
 import LibraryPackages from '../Modules/LibraryPackage/LibraryPackages';
 import BuyLibPack from '../Modules/Transactions/BuyLibPack';
 import AddLibPack from '../Modules/LibraryPackage/AddLibPack'
+import UserProtectedRoute from '../Authentication/UserProtectedRoute';
+import AdminProtected from '../Authentication/AdminProtected';
 
 function MyRouterSwitch({updateUser}) { 
     return (
@@ -90,72 +92,74 @@ function MyRouterSwitch({updateUser}) {
 
                <Route exact path="/library-package/" component={LibraryPackages} />
                <Route exact path="/buy-librarypackage/:p_id" component={BuyLibPack} />
-               <Route exact path="/admin/add-lib-pack" component={AddLibPack} />
+               <AdminProtected exact path="/admin/add-lib-pack" component={AddLibPack} />
                
 
                 {/* ||||ADMIN|||| */}
 
                 {/* ============CATEGORY============= */}
-                <Route exact path="/admin/admin-home" component={AdminHome} />
+                <AdminProtected exact path="/admin/admin-home" component={AdminHome} />
 
-                <Route exact path="/admin/all-feedback" component={ AllFeedback } />
-                <Route exact path="/admin/one-feedback/:f_id" component={ OneFeedback } />
+                <AdminProtected exact path="/admin/all-feedback" component={ AllFeedback } />
+                <AdminProtected exact path="/admin/one-feedback/:f_id" component={ OneFeedback } />
 
-                <Route exact path="/admin/categories" component={AllCategroies}/>
+                <AdminProtected  exact path="/admin/categories" component={AllCategroies}/>
 
-                <Route exact path="/admin/update-category/:cate_id" component={UpdateCategory} />
+                <AdminProtected exact path="/admin/update-category/:cate_id" component={UpdateCategory} />
 
-                <Route exact path="/admin/add-category" component={AddCategory} />
+                <AdminProtected exact path="/admin/add-category" component={AddCategory} />
 
                 {/* ============LANGUAGE============= */}
-                <Route exact path="/admin/languages" component={AllLanguages} />
+                <AdminProtected exact path="/admin/languages" component={AllLanguages} />
 
-                <Route exact path="/admin/add-language" component={AddLanguage} />
+                <AdminProtected exact path="/admin/add-language" component={AddLanguage} />
 
-                <Route exact path="/admin/update-language/:lang_id" component={UpdateLanguage} />
+                <AdminProtected exact path="/admin/update-language/:lang_id" component={UpdateLanguage} />
 
                   {/* ============GENRE============= */}
                 
-                  <Route exact path="/admin/genres" component={AllGenre} />
+                  <AdminProtected exact path="/admin/genres" component={AllGenre} />
 
-                <Route exact path="/admin/add-genre" component={AddGenre} />
+                <AdminProtected exact path="/admin/add-genre" component={AddGenre} />
 
-                <Route exact path="/admin/update-genre/:gen_id" component={UpdateGenre}/>
+                <AdminProtected exact path="/admin/update-genre/:gen_id" component={UpdateGenre}/>
                 
                 {/* =================TRANSACTION============= */}
-                <Route exact path="/admin/view-transactions" component={ViewAllTransaction}/>
+                <AdminProtected exact path="/admin/view-transactions" component={ViewAllTransaction}/>
                 
                 {/* ===================PRODUCT=============== */}
-                <Route exact path="/admin/products" component={AllProducts} />
-                <Route exact path="/admin/add-product" component={AddProduct } />
-                <Route exact path="/admin/add-product-files/:prod_id" component={UploadProductImage } />
+                <AdminProtected exact path="/admin/products" component={AllProducts} />
+                <AdminProtected exact path="/admin/add-product" component={AddProduct } />
+                <AdminProtected exact path="/admin/add-product-files/:prod_id" component={UploadProductImage } />
                 
 
-                <Route exact path="/admin/update-product/:prod_id" component={UpdateProduct} />
-                <Route exact path="/admin/update-product-details/:prod_id" component={UpdateProductBasicDetails} />
-                <Route exact path="/admin/update-product-publisher/:prod_id" component={UpdateProductPublisher} />
-                <Route exact path="/admin/update-product-authors/:prod_id" component={UpdateProductAuthors} />
+                <AdminProtected exact path="/admin/update-product/:prod_id" component={UpdateProduct} />
+                <AdminProtected exact path="/admin/update-product-details/:prod_id" component={UpdateProductBasicDetails} />
+                <AdminProtected exact path="/admin/update-product-publisher/:prod_id" component={UpdateProductPublisher} />
+                <AdminProtected exact path="/admin/update-product-authors/:prod_id" component={UpdateProductAuthors} />
                 
-                <Route exact path="/admin/authors" component={Authors} />
-                <Route exact path="/admin/author/:auth_id" component={OneAuthor} />
+                <AdminProtected exact path="/admin/authors" component={Authors} />
+                <AdminProtected exact path="/admin/author/:auth_id" component={OneAuthor} />
 
                
-                <Route exact path="/admin/pubishers" component={Publishers} />
-                <Route exact path="/admin/publisher/:pub_id" component={OnePublisher} />
+                <AdminProtected exact path="/admin/pubishers" component={Publishers} />
+                <AdminProtected exact path="/admin/publisher/:pub_id" component={OnePublisher} />
                 {/* --------------------- */}
-                <Route exact path="/admin/baneficiaries" component={AllBeneficiary} />
-                <Route exact path="/admin/add-beneficiary" component={AddBeneficiary} />
-                <Route exact path="/admin/update-beneficiary/:ban_id" component={UpdateBeneficiary} />
-                <Route exact path="/admin/beneficiary/:ban_id" component={ViewBeneficiaryById} />
+                <AdminProtected exact path="/admin/baneficiaries" component={AllBeneficiary} />
+                <AdminProtected exact path="/admin/add-beneficiary" component={AddBeneficiary} />
+                <AdminProtected exact path="/admin/update-beneficiary/:ban_id" component={UpdateBeneficiary} />
+                <AdminProtected exact path="/admin/beneficiary/:ban_id" component={ViewBeneficiaryById} />
                 
                 {/* --------------------- */}
-                <Route exact path="/admin/add-authors-to-product/:prod_id" component={AddAuthorsToProduct} />
+                <AdminProtected exact path="/admin/add-authors-to-product/:prod_id" component={AddAuthorsToProduct} />
                 {/* ==================USER=================== */}
-                <Route exact path="/admin/users" component={AllUsers} />
-                <Route exact path="/user/my-profile" component={MyProfile} />
-                <Route exact path="/user/update-my-profile" component={UpdateProfile} />
-                <Route exact path="/user/my-shelf" component={MyShelf} />
-                <Route exact path="/user/generate-invoice" component={GenerateInvoice} />
+                <AdminProtected exact path="/admin/users" component={AllUsers} />
+
+                <UserProtectedRoute exact path="/user/my-profile" component={MyProfile} />
+
+                <UserProtectedRoute exact path="/user/update-my-profile" component={UpdateProfile} />
+                <UserProtectedRoute exact path="/user/my-shelf" component={MyShelf} />
+                <UserProtectedRoute exact path="/user/generate-invoice" component={GenerateInvoice} />
 
 
 

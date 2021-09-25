@@ -27,7 +27,7 @@ function BuyProduct() {
         let shelfObj = {
             tr_type:"PURCHASED",
             prod_expiry:new Date().toJSON(),
-           user:{ u_id:2 },
+           user:{ u_id:localStorage.getItem('u_id') },
            amt:product?.offer_price,
            product:{prod_id }
         }
@@ -42,8 +42,11 @@ function BuyProduct() {
             if(res==='SUCCESSFULL'){
                 setMsg(<AlertComponent type="success"  msg="Successfully Purchased" />)
                 setTimeout(()=>{setMsg(''); history.push("/user/my-shelf")},2000)
-            }else
-            setMsg(<AlertComponent type="danger"  msg="Something went Wrong try again leter" />)
+            }else{
+                
+                setTimeout(()=>{setMsg(''); history.push("/user/my-shelf")},2000);
+            }
+            
         })
         .catch(err=>console.log(err))
 
