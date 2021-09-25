@@ -50,8 +50,8 @@ function Register() {
 
             <Container  className="" >
                 
-                <Row className="justify-content-center  p-4">
-                    <Col md={10} xs={11} className=" justify-content-center rounded  bg-light p-sm-4 border rounded  shadow-lg  ">
+                <Row className="justify-content-center  py-4 px-sm-4">
+                    <Col md={10} xs={11} className=" justify-content-center rounded  bg-light py-4 px-sm-4border rounded  shadow-lg  ">
                         {res.res}
                      <h1 className="text-center text-success">USER REGISTRATION</h1>
 

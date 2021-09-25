@@ -49,6 +49,7 @@ function MyShelf() {
                             <th>No.</th>
                             <th>Cover</th>
                             <th>Title</th>
+                            <th>D.O.P</th>
                             <th>Visit</th>
                             </tr> 
                         </thead>
@@ -58,6 +59,7 @@ function MyShelf() {
                             <td>{i+1}</td>
                             <td><Image src="https://picsum.photos/200/150"  width="50"/>{s.product?.front_image_link}</td>
                             <td>{s.product?.title}</td>
+                            <td> {s.s_date} </td>
                             <td> <Link to={'XXXXX/'+s.product?.prod_id}><Button variant="outline-secondary"><FiEdit size={20} /></Button></Link> </td>
                             </tr>
                             ) }
@@ -75,6 +77,7 @@ function MyShelf() {
                             <th>No.</th>
                             <th>Cover</th>
                             <th>Title</th>
+                            <th>D.O.R</th>
                             <th>Validity</th>
                             <th>Visit</th>
                             </tr> 
@@ -85,7 +88,9 @@ function MyShelf() {
                             <td>{i+1}</td>
                             <td><Image src="https://picsum.photos/200/150"  width="50"/>{s.product?.front_image_link}</td>
                             <td>{s.product?.title}</td>
+                            <td> {s.s_date} </td>
                             <td>{s.prod_expiry}</td>
+                            
                             <td> <Link to={'XXXXX/'+s.product?.prod_id}><Button variant="outline-secondary"><FiEdit size={20} /></Button></Link> </td>
                             </tr>
                             ) }
@@ -103,6 +108,7 @@ function MyShelf() {
                             <th>No.</th>
                             <th>Cover</th>
                             <th>Title</th>
+                            <th>D.O.L</th>
                             <th>Valid</th>
                             <th>Visit</th>
                             </tr> 
@@ -113,6 +119,7 @@ function MyShelf() {
                             <td>{i+1}</td>
                             <td><Image src="https://picsum.photos/200/150"  width="50"/>{s.product?.front_image_link}</td>
                             <td>{s.product?.title}</td>
+                            <td> {s.s_date} </td>
                             <td>{s.prod_expiry}</td>
                             <td> <Link to={'XXXXX/'+s.product?.prod_id}><Button variant="outline-secondary"><FiEdit size={20} /></Button></Link> </td>
                             </tr>

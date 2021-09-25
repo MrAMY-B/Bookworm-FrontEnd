@@ -8,7 +8,7 @@ import { API } from '../UtilComponents/API';
 import AlertComponent from '../UtilComponents/AlertComponent';
 import authUser from './AuthUser';
 
-function UserLogin() {
+function UserLogin({updateUser}) {
 
     const [msg, setMsg] = useState('');
     const history = useHistory();
@@ -24,7 +24,7 @@ function UserLogin() {
             .then(res => {
                 console.log(res)
                 setMsg(<AlertComponent msg="Succesfully Logged in" type="success" />);
-                authUser.loginUser(res, () => { setTimeout(() => { history.push('/user/my-shelf'); }, 2000) })
+                authUser.loginUser(res, () => { setTimeout(() => { updateUser(); history.push('/user/my-shelf'); }, 2000) })
 
 
             })
@@ -49,7 +49,7 @@ function UserLogin() {
 
                 <Row className="justify-content-center  p-4">
 
-                    <Col lg={6} md={8} xs={11} className=" justify-content-center rounded  bg-light p-sm-4 border rounded  shadow-lg  ">
+                    <Col lg={6} md={8} className=" justify-content-center rounded  bg-light py-4 px-sm-4 border rounded  shadow-lg  ">
                         <h1 className="text-center text-success">USER LOGIN</h1>
                         <NavDropdown.Divider />
                         {msg}

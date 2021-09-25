@@ -35,10 +35,9 @@ class App extends Component{
         this.setState({...this.state,sidePanelForSmallSize:!this.state.sidePanelForSmallSize})
         console.log("SIDE PANEL"+this.state.sidePanelForSmallSize);
       }
-
-      
-
-    
+      this.updatePage = ()=>{
+        this.setState( { ...this.state,user_type:localStorage.getItem('user_type')} )
+      }
 
     }
     
@@ -47,7 +46,7 @@ class App extends Component{
       <div className="App">
         <Router>
            {/*======== NAVBAR ======== */}
-           <MyNavbar sidePanel={this.sidePanel} changeUser={this.changeUser}/>
+           <MyNavbar sidePanel={this.sidePanel} updateUser={this.updatePage} changeUser={this.changeUser}/>
            {/* <UserIconPanel /> */}
 
             {/*======== PAGE ======== */}
@@ -70,7 +69,7 @@ class App extends Component{
                   </Col>
                 {/*======== CONTENT ======== */}
                   <Col className="col-lg-10 col-md-9 py-3">
-                    <MyRouterSwitch/>
+                    <MyRouterSwitch updateUser={this.updatePage} />
                   </Col>
               </Row>
 

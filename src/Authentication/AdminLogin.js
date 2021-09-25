@@ -8,7 +8,7 @@ import { API} from '../UtilComponents/API';
 import AlertComponent from '../UtilComponents/AlertComponent';
 import authUser from './AuthUser';
 
-function AdminLogin() {
+function AdminLogin({updateUser}) {
 
    const [msg, setMsg] = useState('');
    const history = useHistory();
@@ -27,7 +27,7 @@ function AdminLogin() {
         .then( res => {
             if( res.ok){
                 setMsg(<AlertComponent msg="Succesfully Logged in" type="success" />);
-                authUser.loginAdmin(()=>{setTimeout(()=>{ setMsg(''); history.push('/admin/admin-home'); },3000)});
+                authUser.loginAdmin(()=>{setTimeout(()=>{ setMsg(''); updateUser(); history.push('/admin/admin-home'); },3000)});
                 console.log('ADMIN LOGGED IN')
             }else{
                 setMsg(<AlertComponent msg="Invalid Credential.." type="warning" />); 
@@ -54,7 +54,7 @@ function AdminLogin() {
                
                 <Row className="justify-content-center  p-4">
                     
-                    <Col lg={6} md={8} xs={11} className=" justify-content-center rounded  bg-light p-sm-4 border rounded  shadow-lg  ">
+                    <Col lg={6} md={8} className=" justify-content-center rounded  bg-light py-4 px-sm-4 border rounded  shadow-lg  ">
                        <h1 className="text-center text-success">ADMIN LOGIN</h1>
                         <NavDropdown.Divider />
                         {msg}

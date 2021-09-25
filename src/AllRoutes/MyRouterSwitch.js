@@ -16,7 +16,7 @@ import AllGenre from '../Modules/Genres/AllGenre';
 import AddGenre from '../Modules/Genres/AddGenre'
 import UpdateGenre from '../Modules/Genres/UpdateGenre'
 import About from '../About';
-import Feedback from '../Feedback';
+
 import Contact from '../Contact'
 import AllUsers from '../Modules/UserModule/AllUsers';
 import MyProfile from '../Modules/UserModule/MyProfile';
@@ -53,8 +53,14 @@ import OneAuthor from '../Modules/Authors/OneAuthor';
 import OnePublisher from '../Modules/Publishers/OnePublisher';
 import GenerateInvoice from '../Modules/Transactions/GenerateInvoice';
 import AdminHome from '../Admin/AdminHome';
+import AllFeedback from '../Feedback/AllFeedback';
+import OneFeedback from '../Feedback/OneFeedback';
+import Feedback from '../Feedback/Feedback'
+import LibraryPackages from '../Modules/LibraryPackage/LibraryPackages';
+import BuyLibPack from '../Modules/Transactions/BuyLibPack';
+import AddLibPack from '../Modules/LibraryPackage/AddLibPack'
 
-function MyRouterSwitch() { 
+function MyRouterSwitch({updateUser}) { 
     return (
         <>
             <Switch>
@@ -65,8 +71,8 @@ function MyRouterSwitch() {
                 <Route exact path="/Contact" component={Contact} />
                 <Route exact path="/Feedback" component={Feedback} />
                 
-                <Route exact  path="/User-Login" component={UserLogin} />
-                <Route exact  path="/Admin-Login" component={AdminLogin} />
+                <Route exact  path="/User-Login" > <UserLogin updateUser={updateUser} /> </Route>
+                <Route exact  path="/Admin-Login" > <AdminLogin updateUser={updateUser} /> </Route>
                 <Route exact path="/SignUp" component={Register} />
                 <Route exact path="/products-by-category/:cate_id" component={ProductsByCategory} />
                 <Route exact path="/products-by-language/:lang_id" component={ProductsByLanguage} />
@@ -81,12 +87,20 @@ function MyRouterSwitch() {
                 <Route exact path="/buy-product/:prod_id" component={BuyProduct} />
                  <Route exact path="/rent-product/:prod_id" component={RentProduct} />
                <Route exact path="/lent-product/:prod_id" component={LentProduct} />
-                
+
+               <Route exact path="/library-package/" component={LibraryPackages} />
+               <Route exact path="/buy-librarypackage/:p_id" component={BuyLibPack} />
+               <Route exact path="/admin/add-lib-pack" component={AddLibPack} />
+               
 
                 {/* ||||ADMIN|||| */}
 
                 {/* ============CATEGORY============= */}
                 <Route exact path="/admin/admin-home" component={AdminHome} />
+
+                <Route exact path="/admin/all-feedback" component={ AllFeedback } />
+                <Route exact path="/admin/one-feedback/:f_id" component={ OneFeedback } />
+
                 <Route exact path="/admin/categories" component={AllCategroies}/>
 
                 <Route exact path="/admin/update-category/:cate_id" component={UpdateCategory} />

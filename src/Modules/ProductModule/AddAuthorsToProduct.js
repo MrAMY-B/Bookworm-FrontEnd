@@ -22,7 +22,7 @@ function AddAuthorsToProduct() {
 
     useEffect(() => { fetch(API + '/author/all').then(res => res.json()).then(res => setAllAuthors(res)); }, [prod_id]);
     useEffect(() => {
-        fetch('https://amol-bookworm-api.herokuapp.com/product/' + prod_id)
+        fetch(API+'/product/' + prod_id)
             .then(res => res.json())
             .then(res => { setProduct(res); console.log(res); console.log("request") })
             .catch(err => console.log("INVALID PRODUCT ID"))
@@ -76,7 +76,7 @@ function AddAuthorsToProduct() {
             let prod = product;
             prod.authors = authors;
             console.log(prod)
-            fetch('https://amol-bookworm-api.herokuapp.com/product/',
+            fetch(API+'/product/',
                 { method: "PUT", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(prod) })
                 .then(res => {
                     if (res.ok) {

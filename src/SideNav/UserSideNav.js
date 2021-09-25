@@ -87,11 +87,19 @@ function UserSideNav() {
                         </ul>
                     </Collapse>
                 </div>
-                <hr />
+                <hr className="my-0" />
                 <div>
                     <Nav.Link as={Link} to={'/user/generate-invoice/'+u_id} >
                         <h6 >
                             <MdOpenInNew /> Generate Invoice
+                        </h6>
+                    </Nav.Link>
+                </div>
+                <hr className="my-0" />
+                <div>
+                    <Nav.Link as={Link} to={'/library-package/'} >
+                        <h6 >
+                            <MdOpenInNew /> Library Package
                         </h6>
                     </Nav.Link>
                 </div>

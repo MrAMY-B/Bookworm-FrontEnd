@@ -39,10 +39,10 @@ function ProductsByCategory() {
 
     return (
         <>
-           <h1 className="text-center text-success">CATEGORY-Genre List</h1>
+           <h1 className="text-center text-success">Language -  { genreList[0]?.language.language }</h1>
             <Row className="mx-0 mb-4 pt-sm-4">
 
-                {genreList.map( (oneGenre,index) => <SaperatorByGenre key={index} oneGenre={oneGenre} prodlist={products} /> )}
+                {genreList?.map( (oneGenre,index) => <SaperatorByGenre key={index} oneGenre={oneGenre} prodlist={products} /> )}
         
                 
             </Row>

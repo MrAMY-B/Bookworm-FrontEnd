@@ -28,7 +28,13 @@ class AuthUser {
     }
 
     logout= (cb)=>{ 
-            (this.isLoggedIn()) ?  localStorage.clear() : console.log("ALREADY LOGGED Logged out"); 
+            if(this.isLoggedIn()){
+                localStorage.clear();
+                localStorage.setItem('isLoggedIn',false);
+                localStorage.setItem('user_type','DEFALUT');
+            }
+            else
+            console.log("ALREADY LOGGED Logged out"); 
 
         cb();
      }

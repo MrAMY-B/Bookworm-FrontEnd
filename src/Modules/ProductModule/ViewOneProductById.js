@@ -130,16 +130,21 @@ function ViewOneProductById() {
             </Row>
             <hr/>
             <Row className="pt-md-2"> 
-                <Col >
+               { 
+                localStorage.getItem('user_type')!=='ADMIN' ? '' : 
+                <>
+                     <Col >
                     <p><small>Offer Price</small></p>
                     <p><b>Rs.{product.offer_price}/-</b></p>
 
-                </Col>
-                <Col >
-                    <p><small>Base Price</small></p>
-                    <p><b>Rs.{product.base_price}/-</b></p>
+                    </Col>
+                    <Col >
+                        <p><small>Base Price</small></p>
+                        <p><b>Rs.{product.base_price}/-</b></p>
 
-                </Col>
+                    </Col>
+                </> 
+               }
                 <Col >
                     <p><small>Selling price</small></p>
                     <p><b>Rs.{product.sale_price}/-</b></p>

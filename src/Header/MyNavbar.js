@@ -10,7 +10,7 @@ import {TextLeft} from 'react-bootstrap-icons'
 import AlertComponent from '../UtilComponents/AlertComponent';
 import authUser from '../Authentication/AuthUser'
 
-function MyNavbar({changeUser,sidePanel}) {
+function MyNavbar({changeUser,sidePanel,updateUser}) {
 
     const [isVisibleProductSearch,setIsVisibleProductSearch] = useState(false)
     const [showProductSearch, setShowProductSearch] = useState('d-none');
@@ -31,7 +31,7 @@ function MyNavbar({changeUser,sidePanel}) {
 
     const logoutHandler = ()=>{
         setAlrt(<AlertComponent type="success" msg="Successfully Logged out." />)
-        authUser.logout(()=>{ setTimeout(()=>{ setAlrt(''); history.push('/'); },3000)})
+        authUser.logout(()=>{ setTimeout(()=>{ setAlrt(''); updateUser(); history.push('/'); },3000)})
     }
 
     return (

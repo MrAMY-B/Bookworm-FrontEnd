@@ -33,10 +33,10 @@ function ProductsByLanguage() {
 
     return (
         <>
-           <h1 className="text-center text-success">CATEGORY-Languages</h1>
+           <h1 className="text-center text-success">CATEGORY-{languageList[0]?.category.category}</h1>
             <Row className="mx-0 mb-4 pt-sm-4">
 
-                {languageList.map( (oneLanguage,index) => <SapratorByLanguage key={index} oneLanguage={oneLanguage} prodlist={products} /> )}
+                {languageList?.map( (oneLanguage,index) => <SapratorByLanguage key={index} oneLanguage={oneLanguage} prodlist={products} /> )}
         
                 
             </Row>

@@ -12,6 +12,7 @@ function AdminSideNav() {
     const [openAU, setOpenAU] = useState(false);
     const [openB, setOpenB] = useState(false);
     const [openPU, setOpenPU] = useState(false);
+    const [openLp, setOpenLp] = useState(false)
 
 
     return (
@@ -114,13 +115,13 @@ function AdminSideNav() {
                         <div>
                             <Nav.Link>
                                 <h6 onClick={() => setOpenB(!openB)} aria-controls="bane">
-                                    <MdArrowDropDown/> Baneficiary
+                                    <MdArrowDropDown/> Beneficiary
                                 </h6>
                             </Nav.Link>
                             <Collapse in={openB}>
                                     <ul className="  list-group-flush" id="bane">
-                                        <li className="list-group-item"><Link to="/admin/baneficiaries" >See Baneficiaries</Link></li>
-                                        <li className="list-group-item"><Link to="/admin/add-beneficiary" >Add Baneficiary</Link></li>
+                                        <li className="list-group-item"><Link to="/admin/baneficiaries" >See Beneficiaries</Link></li>
+                                        <li className="list-group-item"><Link to="/admin/add-beneficiary" >Add Beneficiary</Link></li>
                                     </ul>
 
                             </Collapse>
@@ -138,7 +139,23 @@ function AdminSideNav() {
                                     </ul>
                             </Collapse>
                         </div>
-                        <hr />
+
+                        <div>
+                            <Nav.Link>
+                                <h6 onClick={() => setOpenLp(!openLp)} aria-controls="pack">
+                                    <MdArrowDropDown/> Lib-Packages
+                                </h6>
+                            </Nav.Link>
+                            <Collapse in={openLp}>
+                                    <ul className="  list-group-flush" id="pack">
+                                        <li className="list-group-item"><Link to="/library-package/" >See Packages</Link></li>
+                                        <li className="list-group-item"><Link to="/admin/add-lib-pack" >Add Pachage</Link></li>
+                                    </ul>
+                            </Collapse>
+                        </div>
+
+                       
+                        
                         <div>
                             <Nav.Link  as={Link} to="/admin/view-transactions">
                                 <h6 aria-controls="pub">
@@ -148,6 +165,18 @@ function AdminSideNav() {
                             </Nav.Link>
                            
                         </div>
+                        <hr className="my-0" />
+                        <div>
+                            <Nav.Link  as={Link} to="/admin/all-feedback">
+                                <h6 >
+                                    All Feedbacks 
+                                    
+                                </h6>
+                            </Nav.Link>
+                           
+                        </div>
+
+
 
 
                 </Nav>

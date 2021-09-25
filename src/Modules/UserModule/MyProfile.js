@@ -45,8 +45,14 @@ function MyProfile() {
                     <h6>City : {user?.address?.city}</h6>
                     <h6>Pin Code : {user?.address?.pin_code}</h6>
                </Col>
+               <hr className="my-0"/>
+           <Row className="text-center">
+               <Col> <h6>Points : {user.points}</h6> </Col>
+               <Col> <h6>Products can lent : {user.can_lent_product}</h6> </Col>
+           </Row>
                
            </Row>
+           
           
            </Container>
          
